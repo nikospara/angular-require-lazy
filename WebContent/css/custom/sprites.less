@@ -1,0 +1,58 @@
+// extract from bootstrap/sprites.less - include only what you need
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+//  .ie7-restore-right-whitespace();
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("@{iconSpritePath}");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  margin-top: 1px;
+}
+
+.icon-edit               { background-position: -96px  -72px; }
+.icon-remove             { background-position: -312px 0; }
+.icon-return             { background-position: -48px  -168px; }
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+.iconsetup(@dim,@path) {
+	display: inline-block;
+	width: @dim;
+	height: @dim;
+	line-height: @dim;
+	vertical-align: text-top;
+	background-image: url("@{path}");
+	background-repeat: no-repeat;
+}
+.iconsm(@x, @y) {
+	background-position: -@iconDimSm*@x  -@iconDimSm*@y;
+}
+.iconlg(@x, @y) {
+	background-position: -@iconDimLg*@x  -@iconDimLg*@y;
+}
+
+
+[class^="iconsm-"],
+[class*=" iconsm-"] {
+	.iconsetup(@iconDimSm,@iconSmSpritePath)
+}
+[class^="iconlg-"],
+[class*=" iconlg-"] {
+	.iconsetup(@iconDimLg,@iconLgSpritePath)
+}
+
+.iconsm-back            { .iconsm(@iconBackX,@iconBackY); }
+.iconlg-back            { .iconlg(@iconBackX,@iconBackY); }
+.iconsm-x               { .iconsm(@iconXX,@iconXY); }
+.iconlg-x               { .iconlg(@iconXX,@iconXY); }
+.iconsm-trash           { .iconsm(@iconTrashX,@iconTrashY); }
+.iconlg-trash           { .iconlg(@iconTrashX,@iconTrashY); }
+.iconsm-pencil1         { .iconsm(@iconPencil1X,@iconPencil1Y); }
+.iconlg-pencil1         { .iconlg(@iconPencil1X,@iconPencil1Y); }
+.iconsm-pencil2         { .iconsm(@iconPencil2X,@iconPencil2Y); }
+.iconlg-pencil2         { .iconlg(@iconPencil2X,@iconPencil2Y); }

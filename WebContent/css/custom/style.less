@@ -1,0 +1,296 @@
+@import "../bootstrap/variables.less";
+@import "variables.less";
+@import "../bootstrap/mixins.less";
+
+body {
+	padding-top: @navbarHeight;
+}
+
+label {
+	display: inline-block;
+	padding-left: @inputBorderRadius + 1px; // 1px for the border
+}
+
+.control-action {
+	float: right;
+	padding: 0 1px;
+//	opacity: 0;
+	.transition(opacity 0.3s);
+	
+	&:hover {
+		background-color: @textColor;
+		
+		i {
+			background-image: url("@{iconSmWhiteSpritePath}");
+		}
+	}
+}
+//
+//.validation-msg {
+//	font-size: 0.8em;
+//	display: none;
+//}
+////////////////////////////////////////////////////////////////////////
+///// DEPRECATED
+//.link-action {
+//	padding: 1px 1px 0 1px;
+//	&:hover {
+//		background-color: @textColor;
+//		
+//		[class^="iconsm-"],
+//		[class*=" iconsm-"] {
+//			background-image: url("@{iconSmWhiteSpritePath}");
+//		}
+//		[class^="iconlg-"],
+//		[class*=" iconlg-"] {
+//			background-image: url("@{iconLgWhiteSpritePath}");
+//		}
+//	}
+//}
+////////////////////////////////////////////////////////////////////////
+.link-action {
+//a {
+	[class^="iconsm-"],
+	[class*=" iconsm-"] {
+		background-image: url("@{iconLgLinkColorSpritePath}");
+	}
+	[class^="iconlg-"],
+	[class*=" iconlg-"] {
+		background-image: url("@{iconLgLinkColorSpritePath}");
+	}
+	
+	&:hover {
+		[class^="iconsm-"],
+		[class*=" iconsm-"] {
+			background-image: url("@{iconLgLinkColorHoverSpritePath}");
+		}
+		[class^="iconlg-"],
+		[class*=" iconlg-"] {
+			background-image: url("@{iconLgLinkColorHoverSpritePath}");
+		}
+	}
+}
+
+.control-group {
+	.control-action {
+		.opacity(0);
+	}
+	
+	&:hover {
+		.control-action {
+			.opacity(100);
+		}
+	}
+	
+	input, select {
+// see http://stackoverflow.com/questions/2226666/background-image-for-select-dropdown-does-not-work-in-chrome
+//		-webkit-appearance: none;
+		padding-left: 23px;
+		background-image: url("@{iconSpritePath}");
+		background-position: -480px -1px;
+		background-repeat: no-repeat;
+		
+		&:focus {
+			background-position: -480px -31px;
+		}
+	}
+	
+	&.required {
+		input, select {
+			background-position: -480px -61px;
+			
+			&:focus {
+				background-position: -480px -91px;
+			}
+		}
+	}
+	
+	&.error {
+		input, select {
+			background-position: -480px -181px;
+		
+			&:focus {
+				background-position: -480px -211px;
+			}
+		}
+	}
+	
+	input.ng-valid, select.ng-valid {
+		background-position: -480px -121px;
+		
+		&:focus {
+			background-position: -480px -151px;
+		}
+	}
+}
+
+// chrome does not support backgrounds in selects, so reset the padding too
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.control-group select {
+		background-image: none;
+		padding-left: 6px;
+	}
+}
+
+.controls{
+	position: relative;
+}
+
+@msgIndDimension: 18px;
+.msg-ind {
+	width: @msgIndDimension;
+	height: @msgIndDimension;
+	position: absolute;
+	left: 1px;
+	top: (@inputHeight - @msgIndDimension) / 2;
+	cursor: pointer;
+	display: block;
+	
+	p {
+		display: none;
+	}
+}
+
+.qtip-content {
+	p {
+		margin: 2px 0;
+	}
+}
+
+// a bootstrap grid cell that contains anchor commands
+.grid-command-cell {
+	p {
+		padding: 4px 12px; // make it similar to .btn
+		text-align: center;
+	}
+}
+
+.icobusysm {
+	.iconsetup(@iconDimSm,"../images/activity-spinner-16-combined.gif");
+	background-position: 0 0;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// categories view specific
+ul.category-list {
+	list-style: none;
+	margin: 0;
+	
+	li {
+		float: left;
+		width: 33.3%;
+		.box-sizing(border-box);
+		padding: 0 0 6px;
+		
+		div {
+			border: 1px solid @inputBorder;
+			.border-radius(@inputBorderRadius);
+			padding: 3px;
+			position: relative; // position container for the control-action
+			
+			&.dflt-category {
+				background-color: @grayLighter;
+				.control-action {
+					display: none;
+				}
+				.icobusysm {
+					background-position: -@iconDimSm 0;
+				}
+			}
+			
+			p {
+				margin: 0;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				padding-right: 20px;
+			}
+			
+			.control-action, span {
+				position: absolute;
+				top: 50%;
+				right: 3px;
+				margin-top: -@baseLineHeight/2;
+			}
+			
+			span {
+				display: none;
+			}
+			
+			&.pending {
+				a.control-action {
+					display: none;
+				}
+				span {
+					display: inline;
+				}
+			}
+			
+			&.deleted {
+				p {
+					text-decoration: line-through;
+				}
+			}
+		}
+		
+		&:nth-child(3n+1) {
+			padding-right: 4px;
+		}
+		&:nth-child(3n+2) {
+			padding-left: 2px;
+			padding-right: 2px;
+		}
+		&:nth-child(3n+0) {
+			padding-left: 4px;
+		}
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// effects
+/*
+.drop-in-setup {
+	.transition(all linear 1.3s);
+	line-height: 0;
+//	.opacity(0);
+//	height: 0;
+	overflow: hidden;
+	
+	&.drop-in-start {
+		line-height: @baseLineHeight;
+//		.opacity(100);
+//		height: @baseLineHeight;
+//		background-color: red;
+	}
+}
+
+.drop-out-setup {
+	.transition(all linear 1.3s);
+	line-height: @baseLineHeight;
+//	.opacity(100);
+//	height: @baseLineHeight;
+//	overflow: hidden;
+	
+	&.drop-out-start {
+		line-height: 0;
+//		.opacity(0);
+//		height: 0;
+//		background-color: green;
+	}
+}
+*/
+
+
+///////////////////////////////////////////////////////////////////////////////
+// grid
+.grid-style {
+	border: 1px solid rgb(212,212,212);
+	width: 100%; 
+	height: 300px;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+@import "sprites.less";

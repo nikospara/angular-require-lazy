@@ -1,0 +1,16 @@
+{
+	"appDir": "../WebContent/",
+	"baseUrl": "scripts/",
+	"mainConfigFile": "../WebContent/scripts/require-cfg.js",
+	"dir": "../build/",
+	"inlineText": true,
+	"name": "app/bootstrap",
+	"optimize": "none",
+	"normalizeDirDefines": true,
+	
+	"paths": {
+		"jquery": "empty:"
+	},
+	
+	"GUARD": null
+}

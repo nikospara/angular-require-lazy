@@ -1,0 +1,45 @@
+<div class="row-fluid">
+	<h1 class="span10 offset1"><a href="#" x-ng-show="isPushed" x-ng-click="doReturn()" class="link-action"><i class="iconlg-back"></i></a>Categories</h1>
+</div>
+<div class="row-fluid">
+	<div class="span6 offset1">
+		<ul class="category-list clearfix">
+			<li x-ng-repeat="c in categories">
+				<div x-ng-class="{'dflt-category': (c.key == defaultCategoryId), 'pending': c.$pending, 'deleted': c.$deleted}">
+					<p><a href="#" x-ng-click="selectCategoryForEdit($event,c)">{{ c.name }}</a></p>
+					<a href="#" class="control-action" x-ng-click="deleteCategory($event,c)"><i class="iconsm-trash"></i></a>
+					<span><i class="icobusysm"></i></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="span4">
+		<form name="editCategoriesForm" autocomplete="off" novalidate="novalidate">
+			<p x-ng-show="selectedCategoryForEdit != null" x-ng-animate="{show: 'drop-in', hide: 'drop-out'}">
+				Change name for category: {{ selectedCategoryForEdit.name }}
+			</p>
+			<div class="row-fluid">
+				<div class="control-group span12">
+					<label class="control-label" for="name">Name</label>
+					<div class="controls">
+						<input x-ng-required="true" x-ng-model="form.name" id="name" name="name" class="input-block-level" type="text" />
+						<div class="msg-ind"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span4 offset4">
+					<button
+						x-ng-click="execute()" x-ng-disabled="editCategoriesForm.$invalid"
+						class="btn input-block-level" type="button"
+					>{{ executeLabel }}</button>
+				</div>
+				<div class="span4 grid-command-cell">
+					<p x-ng-show="hasCancel">
+						<a href="#" x-ng-hide="" x-ng-click="cancel($event)">Cancel</a>
+					</p>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

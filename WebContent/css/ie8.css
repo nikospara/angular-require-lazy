@@ -1,0 +1,7 @@
+.input-block-level {
+	min-height: 20px;
+}
+.msg-ind {
+	background-color: white;
+	filter: alpha(opacity=1);
+}

@@ -1,0 +1,127 @@
+@import "../bootstrap/variables.less";
+@import "../bootstrap/mixins.less";
+
+.navbar-fixed-top .navbar-inner,
+.navbar-fixed-bottom .navbar-inner {
+	padding: 0;
+}
+
+.btn:focus, select:focus {
+	outline: none;
+}
+
+
+
+
+.btn {
+  display: inline-block;
+  .ie7-inline-block();
+  padding: 4px 12px;
+  margin-bottom: 0; // For input.btn
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+//  .buttonBackground(@btnBackground, @btnBackgroundHighlight, @grayDark, 0 1px 1px rgba(255,255,255,.75));
+background-image: none;
+.box-shadow(none);
+background-color: mix(@btnBackground, @btnBackgroundHighlight, 60%);
+//  border: 1px solid @btnBorder;
+border: 1px solid mix(@btnBackground, @btnBackgroundHighlight, 60%);
+  *border: 0; // Remove the border to prevent IE7's black border on input:focus
+//  border-bottom-color: darken(@btnBorder, 10%);
+  .border-radius(@baseBorderRadius);
+  .ie7-restore-left-whitespace(); // Give IE7 some love
+//  .box-shadow(~"inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)");
+
+  // Hover/focus state
+  &:hover,
+  &:focus {
+    color: @grayDark;
+    text-decoration: none;
+//    background-position: 0 -15px;
+
+    // transition is only when going to hover/focus, otherwise the background
+    // behind the gradient (there for IE<=9 fallback) gets mismatched
+//    .transition(background-position .1s linear);
+background-color: @btnBackgroundHighlight;
+border: 1px solid @btnBackgroundHighlight;
+  }
+
+  // Focus state for keyboard and accessibility
+  &:focus {
+    
+  }
+
+  // Active state
+  &.active,
+  &:active {
+    background-image: none;
+    outline: 0;
+    .box-shadow(~"inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)");
+  }
+
+  // Disabled state
+  &.disabled,
+  &[disabled] {
+    cursor: default;
+    background-image: none;
+    .opacity(65);
+    .box-shadow(none);
+  }
+
+}
+
+.btn-success {
+color: white;
+//  .buttonBackground(@btnSuccessBackground, @btnSuccessBackgroundHighlight);
+background-color: mix(@btnSuccessBackground, @btnSuccessBackgroundHighlight, 60%);
+//  border: 1px solid @btnBorder;
+border: 1px solid mix(@btnSuccessBackground, @btnSuccessBackgroundHighlight, 60%);
+  // Hover/focus state
+  &:hover,
+  &:focus {
+    color: white;
+    background-color: @btnSuccessBackgroundHighlight;
+    border: 1px solid @btnSuccessBackgroundHighlight;
+  }
+}
+.btn-danger {
+color: white;
+background-color: mix(@btnDangerBackground, @btnDangerBackgroundHighlight, 60%);
+border: 1px solid mix(@btnDangerBackground, @btnDangerBackgroundHighlight, 60%);
+  // Hover/focus state
+  &:hover,
+  &:focus {
+    color: white;
+    background-color: @btnDangerBackgroundHighlight;
+    border: 1px solid @btnDangerBackgroundHighlight;
+  }
+}
+
+
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input,
+.uneditable-textarea {
+	.box-shadow(none);
+// This disables the "halo" effect on focus
+//	&:focus {
+//		.box-shadow(none);
+//	}
+}

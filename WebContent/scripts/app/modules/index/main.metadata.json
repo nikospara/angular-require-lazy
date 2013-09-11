@@ -1,0 +1,8 @@
+{
+	"angular-routes": [
+		{
+			"path": "/index",
+			"display": "Home"
+		}
+	]
+}

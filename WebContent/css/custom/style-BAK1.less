@@ -1,0 +1,81 @@
+@import "../bootstrap/variables.less";
+@import "../bootstrap/mixins.less";
+
+body {
+	padding-top: @navbarHeight;
+}
+
+label {
+	display: inline-block;
+	padding-left: @inputBorderRadius + 1px; // 1px for the border
+}
+
+.control-action {
+	float: right;
+	padding: 0 1px;
+	opacity: 0;
+	transition: opacity 0.3s;
+	-webkit-transition: opacity 0.3s;
+	
+	&:hover {
+		background-color: @textColor;
+		
+		i {
+			background-image: url("@{iconWhiteSpritePath}");
+		}
+	}
+}
+
+.validation-msg {
+	font-size: 0.8em;
+	display: none;
+}
+
+.control-group {
+	&:hover {
+		.control-action {
+			opacity: 1;
+		}
+	}
+
+	&.error {
+		input, textarea {
+			padding-left: 25px;
+		}
+		
+		.msg-ind {
+			display: block;
+		}
+	}
+	
+//	&.required {
+//		label:before {
+//			content: "(*) ";
+//			color: @infoText;
+//			font-weight: bold;
+//		}
+//	}
+}
+
+.controls{
+	position: relative;
+}
+
+@msgIndDimension: 18px;
+.msg-ind {
+	background-image: url("../images/x_x5F_alt18.png");
+	background-position: center center;
+//	background-color: @inputBackground;
+	background-repeat: no-repeat;
+	width: @msgIndDimension;
+	height: @msgIndDimension;
+	position: absolute;
+	left: 5px;
+	top: (@inputHeight - @msgIndDimension) / 2;
+	cursor: pointer;
+	display: none;
+}
+
+
+
+@import "sprites.less";

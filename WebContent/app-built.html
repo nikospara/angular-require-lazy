@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Expenses</title>
+	<link href="css/css/style.css" rel="stylesheet" />
+	<link href="css/jquery.qtip-2.0.1-57.css" rel="stylesheet" />
+	<link href="css/ng-grid.css" rel="stylesheet" />
+	<!--[if IE 8]>
+	<link href="css/ie8.css" rel="stylesheet" />
+	<![endif]-->
+</head>
+<body>
+	<div id="navbar" class="navbar navbar-inverse navbar-fixed-top" x-ng-controller="app/main/NavbarCtrl" x-ng-include="'virtual-template/navbar.html'"></div>
+	
+	<div class="container">
+		<div x-ng-view=""></div>
+	</div>
+	
+	<!-- BOOTSTRAPING -->
+	<script src="scripts/lib/require/almond-0.2.5.js"></script>
+	<script src="scripts/lib/require/trick-almond-cfg.js"></script>
+	<script src="scripts/lib/jquery-1.9.1.min.js"></script>
+	<script src="scripts/lib/angular/angular.min.js"></script>
+	<script src="scripts/lib/angular-require/angular-require.js"></script>
+	<script src="scripts/lib/lazyload.js"></script>
+	<!-- CONFIGURATION -->
+	<script src="scripts/require-cfg.js"></script>
+	<script>
+		// customize require configuration, e.g. locale
+	</script>
+	<!-- BOOTSTRAP APPLICATION AND CALL APP/MAIN -->
+	<script>
+		LazyLoad.js(["scripts/app/bootstrap-built.js"], function() {
+			require(["app/bootstrap"]);
+		});
+	</script>
+</body>
+</html>

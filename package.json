@@ -1,0 +1,10 @@
+{
+	"name": "angular-expenses",
+	"description": "angular-expenses",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"express": "3.x",
+		"less": "1.4.x"
+	}
+}

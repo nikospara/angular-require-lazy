@@ -1,0 +1,8 @@
+{
+	"angular-routes": [
+		{
+			"path": "/categories",
+			"display": "Categories"
+		}
+	]
+}

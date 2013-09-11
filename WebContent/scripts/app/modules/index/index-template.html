@@ -1,0 +1,43 @@
+<form name="homeEntryForm" autocomplete="off" novalidate="novalidate">
+	<div class="row-fluid">
+		<h1 class="span8 offset2">Enter Expense</h1>
+	</div>
+	<div class="row-fluid">
+		<div class="control-group span2 offset2">
+			<label class="control-label" for="amount">Amount</label>
+			<div class="controls">
+				<input x-ng-required="true" x-ng-model="form.amount" id="amount" name="amount" class="input-block-level" type="text" />
+				<div class="msg-ind"></div>
+			</div>
+		</div>
+		<div class="control-group span4">
+			<label class="control-label" for="reason">Reason</label>
+			<div class="controls">
+				<input x-ng-required="true" x-ng-model="form.reason" id="reason" name="reason" class="input-block-level" type="text" />
+				<div class="msg-ind"></div>
+			</div>
+		</div>
+		<div class="control-group span2 required">
+			<label class="control-label" for="category">Category</label>
+			<a class="control-action" href="#/categories" x-ng-click="editCategories($event)" tabindex="-1"><i class="iconsm-pencil1" /></a>
+			<div class="controls">
+				<select
+					xxx-ng-required="true" x-ng-model="form.categoryId"
+					x-ng-options="c.key as c.name for c in categories"
+					x-ng-disabled="!categories.$resolved"
+					id="category" name="category" class="input-block-level"
+				></select>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="control-group span2 offset5">
+			<div class="controls">
+				<button
+					x-ng-click="enter()" x-ng-disabled="homeEntryForm.$invalid"
+					class="btn input-block-level" type="button"
+				>Go!</button>
+			</div>
+		</div>
+	</div>
+</form>

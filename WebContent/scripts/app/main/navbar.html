@@ -1,0 +1,15 @@
+<div class="navbar-inner">
+	<div class="container">
+		<button type="button" class="btn btn-navbar" x-ng-click="isNavbarCollapsed = !isNavbarCollapsed">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="brand" href="/">EXPENSES</a>
+		<div class="nav-collapse" x-collapse="isNavbarCollapsed">
+			<ul class="nav">
+				<li x-ng-repeat="menuEntry in menuEntries" x-ng-class="{active: isActive(menuEntry)}"><a x-ng-href="#{{menuEntry.path}}">{{menuEntry.display}}</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
