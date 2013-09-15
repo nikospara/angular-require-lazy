@@ -1,26 +1,9 @@
 define([
-	"jquery", "app/shared/dao/categoriesDao", "app/shared/dao/userDao", "util/view-utils", "util/return-service",
+	"jquery", "app/shared/dao/categoriesDao", "util/view-utils", "util/return-service", "lib/angular-require/lazy-directives",
 	"text!./categories-template.html", "text!./delete-template.html"
 ],
-function($, categoriesDao, userDao, viewUtils, returnSvc, template, templateDelete) {
+function($, categoriesDao, viewUtils, returnSvc, lazyDirectives, template, templateDelete) {
 	"use strict";
-/*
-angular.module("app/main").animation("drop-in", function() {
-	return {
-		setup : function(element) {
-			var memo = element.height();
-			element.css("height","0px");
-console.log(memo);
-			return memo;
-		},
-		start : function(element, done, memo) {
-			element.animate({height:memo+"px"}, function() {
-				done();
-			});
-		}
-	};
-});
-*/
 	
 	var ADD_LABEL = "Add", RENAME_LABEL = "Rename", opts;
 	
@@ -38,7 +21,6 @@ console.log(memo);
 		
 		$.extend($scope, {
 			categories: categoriesDao.fetchCachedForCurrentUser(),
-			defaultCategoryId: initDefaultCategoryId(),
 			form: {
 				name: null
 			},
@@ -54,9 +36,6 @@ console.log(memo);
 		});
 		
 		function execute(event) {
-console.log($scope);
-console.log("FORM: %o", $scope.form);
-			// TODO execute - distinguish execution cases (add, update)
 			if( $scope.selectedCategoryForEdit != null ) updateCategory();
 			else addCategory();
 		}
@@ -92,8 +71,7 @@ console.log("FORM: %o", $scope.form);
 			$scope.executeLabel = ADD_LABEL;
 		}
 		
-		function selectCategoryForEdit(event,c) {
-			viewUtils.preprocessAnchorEvt(event);
+		function selectCategoryForEdit(c) {
 			if( c.key == null ) return;
 			$scope.selectedCategoryForEdit = c;
 			$scope.form.name = c.name;
@@ -101,14 +79,11 @@ console.log("FORM: %o", $scope.form);
 			$scope.executeLabel = RENAME_LABEL;
 		}
 		
-		function deleteCategory(event,c) {
-			viewUtils.preprocessAnchorEvt(event);
+		function deleteCategory(c) {
 			if( c.key == null ) return;
 			opts.controller = ["$scope", "dialog", DeleteCtrl];
 			var d = $dialog.dialog(opts);
 			d.open().then(function(result) {
-console.log(result, c);
-				// TODO Delete
 				if( result === "yes" ) {
 					categoriesDao.deleteCategory(c);
 				}
@@ -120,18 +95,6 @@ console.log(result, c);
 					dialog.close(result);
 				};
 			}
-		}
-		
-		function initDefaultCategoryId() {
-//			var d = $q.defer();
-//			userDao.getUserData().done(function(userData) {
-//				d.resolve(userData.defaultCategoryId);
-//			});
-//			return d.promise;
-// ALT - BETTER:
-			return userDao.getUserData().then(function(userData) {
-				return userData.defaultCategoryId;
-			});
 		}
 		
 		function initHasCancel() {

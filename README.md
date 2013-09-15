@@ -3,6 +3,11 @@ angular-require-lazy
 
 An example-experimental application for mixing [AngularJS](http://angularjs.org/), [RequireJS](http://requirejs.org/) and [require-lazy](https://github.com/nikospara/require-lazy).
 
+Changes
+-------
+
+- (2013/09/15) Added a lazy directive example, see `scripts/app/modules/categories/category-directive.js`.
+
 Preface
 -------
 
@@ -52,7 +57,7 @@ and [require-lazy](https://github.com/nikospara/require-lazy).
 The noteworthy points are:
 
 - AngularJS modules are lazy loaded.
-- Directives can be lazy loaded too, using `lib/angular-require/lazy-directives` (example coming soon).
+- Directives can be lazy loaded too, using `lib/angular-require/lazy-directives` (see `scripts/app/modules/categories/category-directive.js`).
 - There is a "module" discovery mechanism: any directory under `app/modules/` that contains a `main.js` script and a `main.metadata.json`
   can automatically appear in the menu.
 - The application is split into bundles automatically using `r.js` standard configuration and require-lazy;

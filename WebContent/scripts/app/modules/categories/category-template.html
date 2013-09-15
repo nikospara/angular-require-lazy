@@ -1,0 +1,5 @@
+<div x-ng-class="{'dflt-category': (category.key == defaultCategoryId), 'pending': category.$pending, 'deleted': category.$deleted}">
+	<p><a href="#" x-ng-click="editCb($event,category)">{{ category.name }}</a></p>
+	<a href="#" class="control-action" x-ng-click="removeCb($event,category)"><i class="iconsm-trash"></i></a>
+	<span><i class="icobusysm"></i></span>
+</div>
