@@ -1,4 +1,4 @@
-define(["jquery", "angular!app/main/main", "lib/angular-require/route-config", "lib/angular-require/lazy-directives", "lazy-registry", "injector", "./constants"],
+define(["jquery", "angular!app/main/main", "lib/angular-require/routeConfig", "lib/angular-require/lazyDirectives", "lazy-registry", "injector", "./constants"],
 function($, main, routeConfig, lazyDirectives, lazyRegistry, injector, constants) {
 	"use strict";
 	

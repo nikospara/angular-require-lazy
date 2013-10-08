@@ -1,6 +1,6 @@
 define([
 	"jquery", "app/shared/model/Expense", "app/shared/dao/categoriesDao", "app/shared/dao/userDao", "app/shared/dao/expensesDao",
-	"text!./expenses-template.html",
+	"text!./expensesTemplate.html",
 	// side-effect deps
 	"lib/angular/ng-grid"
 ],

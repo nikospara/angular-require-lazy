@@ -1,4 +1,4 @@
-define(["injector", "text!./login-prompt.html", "jquery",
+define(["injector", "text!./loginPrompt.html", "jquery",
 	"lib/angular-ui-bootstrap/dialog"
 ], function(injector, template, $) {
 	"use strict";

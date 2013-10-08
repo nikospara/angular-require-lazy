@@ -1,4 +1,4 @@
-define(["./expenses-view"], function(view) {
+define(["./expensesView"], function(view) {
 	"use strict";
 	
 	function getControllerFor(path) {

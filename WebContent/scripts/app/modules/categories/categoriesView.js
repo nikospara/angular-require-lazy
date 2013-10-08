@@ -1,8 +1,8 @@
 define([
-	"jquery", "app/shared/dao/categoriesDao", "util/view-utils", "util/return-service", "lib/angular-require/lazy-directives",
-	"text!./categories-template.html", "text!./delete-template.html"
+	"jquery", "app/shared/dao/categoriesDao", "util/viewUtils", "util/returnService",
+	"text!./categoriesTemplate.html", "text!./deleteTemplate.html"
 ],
-function($, categoriesDao, viewUtils, returnSvc, lazyDirectives, template, templateDelete) {
+function($, categoriesDao, viewUtils, returnSvc, template, templateDelete) {
 	"use strict";
 	
 	var ADD_LABEL = "Add", RENAME_LABEL = "Rename", opts;

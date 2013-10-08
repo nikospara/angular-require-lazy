@@ -2,7 +2,7 @@ define([
 	// injected dependencies
 	"text!./navbar.html",
 	// AngularModuleExtensions
-	"./navbar-ctrl",
+	"./navbarCtrl",
 	// side-effect (non-AMD) deps
 	"lib/angular-ui-bootstrap/collapse", "lib/angular-ui-bootstrap/dialog"
 ],

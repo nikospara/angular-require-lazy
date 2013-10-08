@@ -1,4 +1,4 @@
-define(["jquery", "./url-utils", "injector"], function($, uu, injector) {
+define(["jquery", "./urlUtils", "injector"], function($, uu, injector) {
 	"use strict";
 	
 	// code derived from angular-resource
@@ -11,7 +11,7 @@ $.ajax("/api/user", {
 });
 
 s = "user/{id}/categories/{cid}/foo"
-require(["app/shared/url-utils"], function(uu) { window.uu = uu; })
+require(["app/shared/urlUtils"], function(uu) { window.uu = uu; })
 rt = new uu.Route(s)
 rt.applyParams({id:4,cid:"mega"})
 

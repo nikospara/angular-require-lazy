@@ -1,4 +1,4 @@
-define(["./index-view"], function(indexView) {
+define(["./indexView"], function(indexView) {
 	"use strict";
 	
 	function getControllerFor(path) {

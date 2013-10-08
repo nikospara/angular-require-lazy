@@ -1,4 +1,4 @@
-define(["util/resource", "util/login-prompt", "jquery"], function(resource, promptLogin, $) {
+define(["util/resource", "util/loginPrompt", "jquery"], function(resource, promptLogin, $) {
 	"use strict";
 	
 	var userData = null, rc, loggedIn = false, loginPending = false;

@@ -1,4 +1,4 @@
-define(["./categories-view", "./category-directive"], function(view) {
+define(["./categoriesView", "./categoryDirective"], function(view) {
 	"use strict";
 	
 	function getControllerFor(path) {

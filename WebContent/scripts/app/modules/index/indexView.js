@@ -1,6 +1,6 @@
 define([
 	"jquery", "app/shared/model/Expense", "app/shared/dao/categoriesDao", "app/shared/dao/userDao", "app/shared/dao/expensesDao",
-	"util/return-service", "text!./index-template.html"
+	"util/returnService", "text!./indexTemplate.html"
 ],
 function($, Expense, categoriesDao, userDao, expensesDao, returnSvc, template) {
 	"use strict";

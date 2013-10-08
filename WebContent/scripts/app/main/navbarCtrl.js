@@ -1,4 +1,4 @@
-define(["AngularModuleExtension", "jquery", "util/menu-entries", "app/constants"],
+define(["AngularModuleExtension", "jquery", "util/menuEntries", "app/constants"],
 function(AngularModuleExtension, $, menuEntries, constants) {
 	"use strict";
 	

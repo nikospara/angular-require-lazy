@@ -1,4 +1,4 @@
-define(["jquery", "app/shared/dao/userDao", "util/view-utils", "lib/angular-require/lazy-directives", "text!./category-template.html"],
+define(["jquery", "app/shared/dao/userDao", "util/viewUtils", "lib/angular-require/lazyDirectives", "text!./categoryTemplate.html"],
 function($, userDao, viewUtils, lazyDirectives, template) {
 	"use strict";
 	
