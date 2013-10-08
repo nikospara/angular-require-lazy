@@ -2,6 +2,8 @@
 	"angular-routes": [
 		{
 			"path": "/categories",
+			"controller": "EditCategoriesCtrl",
+			"template": "virtual-template/categories.html",
 			"display": "Categories"
 		}
 	]

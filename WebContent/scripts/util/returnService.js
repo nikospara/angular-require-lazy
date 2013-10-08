@@ -1,10 +1,10 @@
-define(["injector"], function(injector) {
+define(["deferredInjector"], function(deferredInjector) {
 	"use strict";
 	
 	var stack = [], pushing = false, pushed = false, returning = false, returned = false, startController = null, currentState = null,
 		currentPushedData = null, currentReturnedData = null;
 	
-	injector.get().then(function(inj) {
+	deferredInjector.get().then(function(inj) {
 		var $rootScope = inj.get("$rootScope");
 		
 		$rootScope.$on("$routeChangeSuccess", function(event, currentRoute, previousRoute) {
@@ -50,7 +50,7 @@ define(["injector"], function(injector) {
 	});
 	
 	function push(data, targetView) {
-		injector.get().then(function(inj) {
+		deferredInjector.get().then(function(inj) {
 			var $location = inj.get("$location");
 			pushing = true;
 			stack.push({
@@ -70,7 +70,7 @@ define(["injector"], function(injector) {
 	}
 	
 	function doReturn(data) {
-		injector.get().then(function(inj) {
+		deferredInjector.get().then(function(inj) {
 			var $location = inj.get("$location"), frame = stack.pop();
 			returning = true;
 			currentState = frame.currentState;

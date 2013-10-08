@@ -6,20 +6,23 @@ require.config({
 		"lazy": "lib/require-lazy/lazy",
 		"lazy-builder": "lib/require-lazy/lazy-builder",
 		"promise-adaptor": "lib/require-lazy/promise-adaptor-jquery",
-		"angular": "lib/angular-require/angular",
+		"angular": "lib/angular/angular",
 		"i18n": "lib/require/i18n",
-		"AngularModuleExtension": "lib/angular-require/AngularModuleExtension",
-		"injector": "lib/angular-require/injector",
-		"lib/angular/ng-grid": "lib/angular/ng-grid-2.0.7.debug"
+		"deferredInjector": "lib/angular-require/deferredInjector",
+		"lib/angular/ng-grid": "lib/angular/ng-grid-2.0.7.debug",
+		"currentModule": "lib/angular-require/currentModule"
 	},
 	
-	packages: ["app/modules/index", "app/modules/categories", "app/modules/expenses"],
+	packages: ["app/main", "app/modules/index", "app/modules/categories", "app/modules/expenses"],
 	
 	config: {
 		
 	},
 	
 	shim: {
+		"angular": {
+			exports: "angular"
+		},
 		"lib/jqueryui/jquery.ui.core": {
 			deps: ["jquery"]
 		},
@@ -55,6 +58,12 @@ require.config({
 		},
 		"lib/angular-ui-bootstrap/dialog": {
 			deps: ["jquery", "lib/angular-ui-bootstrap/transition"]
+		},
+		"lib/angular/angular-route": {
+			deps: ["angular"]
+		},
+		"lib/angular/angular-resource": {
+			deps: ["angular"]
 		}
 	}
 });

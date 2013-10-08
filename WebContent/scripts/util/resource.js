@@ -1,25 +1,6 @@
-define(["jquery", "./urlUtils", "injector"], function($, uu, injector) {
+define(["jquery", "./urlUtils", "deferredInjector"], function($, uu, deferredInjector) {
 	"use strict";
 	
-	// code derived from angular-resource
-	/*
-$.ajax("/api/user", {
-	dataType: "json",
-	contentType: "application/json",
-	type: "POST",
-	data: JSON.stringify({"name":"uu","password":"uu","passwordRepeat":"uu"})
-});
-
-s = "user/{id}/categories/{cid}/foo"
-require(["app/shared/urlUtils"], function(uu) { window.uu = uu; })
-rt = new uu.Route(s)
-rt.applyParams({id:4,cid:"mega"})
-
-require(["app/shared/resource"], function(rc) { window.rc = rc; })
-r = rc("/api/user/{id}/categories", {id:1}, {q:{isArray:true,type:"GET"}})
-x = r.q()
-x = r.q(function(data) { window.d1 = data; })
-	 */
 	function extractArgs(hasBody, args) {
 		var params = {}, data, success = $.noop, error = null, alen,
 			a1 = args[0], a2 = args[1], a3 = args[2], a4 = args[3];
@@ -166,12 +147,7 @@ x = r.q(function(data) { window.d1 = data; })
 				args.error
 			).then;
 			
-			promise.always(injector.applyEventually);
-//			promise.always(function() {
-//				injector.get().then(function(j) {
-//					injector.applySafeWith(j);
-//				});
-//			});
+			promise.always(deferredInjector.applyEventually);
 			
 			return ret;
 		};

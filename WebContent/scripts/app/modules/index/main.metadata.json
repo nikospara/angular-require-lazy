@@ -2,6 +2,8 @@
 	"angular-routes": [
 		{
 			"path": "/index",
+			"controller": "IndexCtrl",
+			"template": "virtual-template/index.html",
 			"display": "Home"
 		}
 	]

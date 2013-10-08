@@ -2,6 +2,8 @@
 	"angular-routes": [
 		{
 			"path": "/expenses",
+			"controller": "ExpensesCtrl",
+			"template": "virtual-template/expenses.html",
 			"display": "Expenses"
 		}
 	]

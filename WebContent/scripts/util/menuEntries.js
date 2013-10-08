@@ -23,5 +23,4 @@ define(["lazy-registry"], function(lazyRegistry) {
 	}
 	
 	return makeMenuEntries();
-
 });

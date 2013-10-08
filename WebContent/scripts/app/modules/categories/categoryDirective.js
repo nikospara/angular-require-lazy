@@ -1,8 +1,8 @@
-define(["jquery", "app/shared/dao/userDao", "util/viewUtils", "lib/angular-require/lazyDirectives", "text!./categoryTemplate.html"],
-function($, userDao, viewUtils, lazyDirectives, template) {
+define(["jquery", "app/shared/dao/userDao", "util/viewUtils", "currentModule", "text!./categoryTemplate.html"],
+function($, userDao, viewUtils, currentModule, template) {
 	"use strict";
 	
-	lazyDirectives.register("category", [function() {
+	currentModule.directive("category", [function() {
 		return {
 			template: template,
 			replace: true,

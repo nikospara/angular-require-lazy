@@ -1,16 +1,13 @@
-define(["./expensesView"], function(view) {
+define(["angular", "./expensesView"], function(angular, expensesView) {
 	"use strict";
 	
-	function getControllerFor(path) {
-		return view.controller;
-	}
+	var m = angular.module("index",[]);
 	
-	function getTemplateFor(path) {
-		return view.template;
-	}
+	m.controller("ExpensesCtrl", expensesView.controller);
 	
-	return {
-		getControllerFor: getControllerFor,
-		getTemplateFor: getTemplateFor
-	};
+	m.run(["$templateCache", function($templateCache) {
+		$templateCache.put("virtual-template/expenses.html", expensesView.template);
+	}]);
+	
+	return m;
 });

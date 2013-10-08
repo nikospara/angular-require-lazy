@@ -1,7 +1,8 @@
-define(["AngularModuleExtension", "jquery", "util/menuEntries", "app/constants"],
-function(AngularModuleExtension, $, menuEntries, constants) {
+define(["jquery", "util/menuEntries", "app/constants"],
+function($, menuEntries, constants) {
 	"use strict";
 	
+	NavbarCtrl.$inject = ["$scope", "$location"];
 	function NavbarCtrl($scope, $location) {
 		
 		$.extend($scope, {
@@ -25,9 +26,5 @@ function(AngularModuleExtension, $, menuEntries, constants) {
 		}
 	}
 	
-	return new AngularModuleExtension({
-		controllers: {
-			"./NavbarCtrl": ["$scope", "$location", NavbarCtrl]
-		}
-	});
+	return NavbarCtrl;
 });

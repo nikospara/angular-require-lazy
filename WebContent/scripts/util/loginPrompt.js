@@ -1,10 +1,9 @@
-define(["injector", "text!./loginPrompt.html", "jquery",
+define(["deferredInjector", "text!./loginPrompt.html", "jquery",
 	"lib/angular-ui-bootstrap/dialog"
-], function(injector, template, $) {
+], function(deferredInjector, template, $) {
 	"use strict";
 	
 	var
-//		d, isOpen = false,
 		isOpen = false,
 		
 		opts = {
@@ -19,7 +18,7 @@ define(["injector", "text!./loginPrompt.html", "jquery",
 	function promptLogin() {
 		var ret = $.Deferred();
 		isOpen = true;
-		injector.get().then(
+		deferredInjector.get().then(
 			function(inj) {
 // Caching the dialog results in resolved promise when called a second time (TODO Verify this)
 //				if( d == null ) {
@@ -30,14 +29,13 @@ define(["injector", "text!./loginPrompt.html", "jquery",
 					function(result) { isOpen = false; ret.resolve(result); },
 					function(err) { isOpen = false; ret.reject(err); }
 				);
-				injector.applySafeWith(inj);
+				deferredInjector.applySafeWith(inj);
 			},
 			function(err) { ret.reject(err); }
 		);
 		return ret.promise();
 	}
 	promptLogin.isOpen = function() {
-//		return d != null && d.isOpen();
 		return isOpen;
 	};
 	

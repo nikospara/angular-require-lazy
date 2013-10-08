@@ -1,16 +1,13 @@
-define(["./categoriesView", "./categoryDirective"], function(view) {
+define(["angular", "./categoriesView", "./categoryDirective"], function(angular, view) {
 	"use strict";
 	
-	function getControllerFor(path) {
-		return view.controller;
-	}
+	var m = angular.module("categories",[]);
 	
-	function getTemplateFor(path) {
-		return view.template;
-	}
+	m.controller("EditCategoriesCtrl", view.controller);
 	
-	return {
-		getControllerFor: getControllerFor,
-		getTemplateFor: getTemplateFor
-	};
+	m.run(["$templateCache", function($templateCache) {
+		$templateCache.put("virtual-template/categories.html", view.template);
+	}]);
+	
+	return m;
 });

@@ -1,26 +1,19 @@
 define([
 	// injected dependencies
-	"text!./navbar.html",
-	// AngularModuleExtensions
-	"./navbarCtrl",
+	"angular", "./navbarCtrl", "text!./navbar.html",
 	// side-effect (non-AMD) deps
-	"lib/angular-ui-bootstrap/collapse", "lib/angular-ui-bootstrap/dialog"
+	"lib/angular/angular-route", "lib/angular-ui-bootstrap/collapse", "lib/angular-ui-bootstrap/dialog"
 ],
-angularModule(function(navbarTemplate) {
+function(angular, navbar, navbarTemplate) {
 	"use strict";
 	
-	function cacheTemplates($templateCache) {
-		$templateCache.put("virtual-template/navbar.html", navbarTemplate);
-	}
+	var main = angular.module("main", ["ngRoute", "ui.bootstrap.collapse", "ui.bootstrap.dialog"]);
 	
-	return {
-		name: "..",
-		deps: ["ui.bootstrap.collapse", "ui.bootstrap.dialog"],
-//		configs: [
-//			["$routeProvider", configRoutes]
-//		],
-		run: [
-			["$templateCache", cacheTemplates]
-		]
-	};
-}));
+	main.controller("NavbarCtrl", navbar);
+	
+	main.run(function($templateCache) {
+		$templateCache.put("virtual-template/navbar.html", navbarTemplate);
+	});
+	
+	return main;
+});
