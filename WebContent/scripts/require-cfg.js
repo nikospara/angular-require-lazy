@@ -10,7 +10,8 @@ require.config({
 		"i18n": "lib/require/i18n",
 		"deferredInjector": "lib/angular-require/deferredInjector",
 		"lib/angular/ng-grid": "lib/angular/ng-grid-2.0.7.debug",
-		"currentModule": "lib/angular-require/currentModule"
+		"currentModule": "lib/angular-require/currentModule",
+		"templateCache": "lib/angular-require/templateCache"
 	},
 	
 	packages: ["app/main", "app/modules/index", "app/modules/categories", "app/modules/expenses"],

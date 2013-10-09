@@ -1,13 +1,9 @@
-define(["angular", "./indexView"], function(angular, indexView) {
+define(["angular", "./indexCtrl"], function(angular, indexCtrl) {
 	"use strict";
 	
 	var m = angular.module("index",[]);
 	
-	m.controller("IndexCtrl", indexView.controller);
-	
-	m.run(["$templateCache", function($templateCache) {
-		$templateCache.put("virtual-template/index.html", indexView.template);
-	}]);
+	m.controller("IndexCtrl", indexCtrl);
 	
 	return m;
 });

@@ -3,7 +3,7 @@
 		{
 			"path": "/index",
 			"controller": "IndexCtrl",
-			"template": "virtual-template/index.html",
+			"template": "app/modules/index/indexTemplate.html",
 			"display": "Home"
 		}
 	]

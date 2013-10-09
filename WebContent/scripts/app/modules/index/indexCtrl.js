@@ -1,10 +1,11 @@
 define([
 	"jquery", "app/shared/model/Expense", "app/shared/dao/categoriesDao", "app/shared/dao/userDao", "app/shared/dao/expensesDao",
-	"util/returnService", "text!./indexTemplate.html"
+	"util/returnService", "templateCache!./indexTemplate.html"
 ],
-function($, Expense, categoriesDao, userDao, expensesDao, returnSvc, template) {
+function($, Expense, categoriesDao, userDao, expensesDao, returnSvc) {
 	"use strict";
 	
+	IndexCtrl.$inject = ["$scope"];
 	function IndexCtrl($scope) {
 		
 		$.extend($scope, {
@@ -45,8 +46,5 @@ console.log("EXPENSE: %o", $scope.form);
 		}
 	}
 	
-	return {
-		controller: ["$scope", IndexCtrl],
-		template: template
-	};
+	return IndexCtrl;
 });

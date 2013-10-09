@@ -34,7 +34,7 @@ define(["jquery"], function($) {
 	};
 	
 	currentModuleProxy.run = function(r) {
-		runBlocks.push(r);
+		runBlocks.push(["run",[r]]);
 		return currentModuleProxy;
 	};
 	
@@ -44,7 +44,7 @@ define(["jquery"], function($) {
 		var i, b;
 		for( i=0; i < runBlocks.length; i++ ) {
 			b = runBlocks[i];
-			realModule[b[0]].apply(null,b[1]);
+			realModule[b[0]].apply(realModule,b[1]);
 		}
 		runBlocks = [];
 	};
