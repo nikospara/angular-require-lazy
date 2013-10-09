@@ -3,7 +3,7 @@
 		{
 			"path": "/categories",
 			"controller": "EditCategoriesCtrl",
-			"template": "virtual-template/categories.html",
+			"template": "app/modules/categories/categoriesTemplate.html",
 			"display": "Categories"
 		}
 	]

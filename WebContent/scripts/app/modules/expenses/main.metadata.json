@@ -3,7 +3,7 @@
 		{
 			"path": "/expenses",
 			"controller": "ExpensesCtrl",
-			"template": "virtual-template/expenses.html",
+			"template": "app/modules/expenses/expensesTemplate.html",
 			"display": "Expenses"
 		}
 	]

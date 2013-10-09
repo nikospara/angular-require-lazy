@@ -1,8 +1,8 @@
 define([
-	"jquery", "app/shared/dao/categoriesDao", "util/viewUtils", "util/returnService",
-	"text!./categoriesTemplate.html", "text!./deleteTemplate.html"
+	"jquery", "app/shared/dao/categoriesDao", "util/viewUtils", "util/returnService", "text!./deleteTemplate.html",
+	"templateCache!./categoriesTemplate.html", "./categoryDirective"
 ],
-function($, categoriesDao, viewUtils, returnSvc, template, templateDelete) {
+function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
 	"use strict";
 	
 	var ADD_LABEL = "Add", RENAME_LABEL = "Rename", opts;
@@ -15,6 +15,7 @@ function($, categoriesDao, viewUtils, returnSvc, template, templateDelete) {
 		template: templateDelete
 	};
 	
+	EditCategoriesCtrl.$inject = ["$scope", "$q", "$dialog"];
 	function EditCategoriesCtrl($scope, $q, $dialog) {
 		
 		var lastAddedCategoryKey;
@@ -118,8 +119,5 @@ function($, categoriesDao, viewUtils, returnSvc, template, templateDelete) {
 		}
 	}
 	
-	return {
-		controller: ["$scope", "$q", "$dialog", EditCategoriesCtrl],
-		template: template
-	};
+	return EditCategoriesCtrl;
 });

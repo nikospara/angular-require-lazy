@@ -1,13 +1,9 @@
-define(["angular", "./expensesView"], function(angular, expensesView) {
+define(["angular", "./expensesCtrl"], function(angular, expensesCtrl) {
 	"use strict";
 	
-	var m = angular.module("index",[]);
+	var m = angular.module("expenses",[]);
 	
-	m.controller("ExpensesCtrl", expensesView.controller);
-	
-	m.run(["$templateCache", function($templateCache) {
-		$templateCache.put("virtual-template/expenses.html", expensesView.template);
-	}]);
+	m.controller("ExpensesCtrl", expensesCtrl);
 	
 	return m;
 });

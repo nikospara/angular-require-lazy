@@ -6,13 +6,6 @@
 		<ul class="category-list clearfix">
 			<li x-ng-repeat="c in categories">
 				<div category="c" edit="selectCategoryForEdit(c)" remove="deleteCategory(c)"></div>
-				<!--
-				<div x-ng-class="{'dflt-category': (c.key == defaultCategoryId), 'pending': c.$pending, 'deleted': c.$deleted}">
-					<p><a href="#" x-ng-click="selectCategoryForEdit($event,c)">{{ c.name }}</a></p>
-					<a href="#" class="control-action" x-ng-click="deleteCategory($event,c)"><i class="iconsm-trash"></i></a>
-					<span><i class="icobusysm"></i></span>
-				</div>
-				-->
 			</li>
 		</ul>
 	</div>

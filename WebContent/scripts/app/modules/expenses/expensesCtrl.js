@@ -1,12 +1,12 @@
 define([
 	"jquery", "app/shared/model/Expense", "app/shared/dao/categoriesDao", "app/shared/dao/userDao", "app/shared/dao/expensesDao",
-	"text!./expensesTemplate.html",
 	// side-effect deps
-	"lib/angular/ng-grid"
+	"templateCache!./expensesTemplate.html", "lib/angular/ng-grid"
 ],
-function($, Expense, categoriesDao, userDao, expensesDao, template) {
+function($, Expense, categoriesDao, userDao, expensesDao) {
 	"use strict";
 	
+	ExpensesCtrl.$inject = ["$scope"];
 	function ExpensesCtrl($scope) {
 		$.extend($scope, {
 			defaultCategoryId: initDefaultCategoryId(),
@@ -70,8 +70,5 @@ function($, Expense, categoriesDao, userDao, expensesDao, template) {
 		}
 	}
 	
-	return {
-		controller: ["$scope", /*"$q", "$dialog",*/ ExpensesCtrl],
-		template: template
-	};
+	return ExpensesCtrl;
 });
