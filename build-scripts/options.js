@@ -7,7 +7,10 @@ exports.config = {
 	basePath: path.normalize(path.join(__dirname, "..", "WebContent")),
 	outputBaseDir: path.normalize(path.join(__dirname, "..", "build")),
 	discoverModules: discoverModules,
-	retrieveMetaForModule: retrieveMetaForModule
+	retrieveMetaForModule: retrieveMetaForModule,
+	makeBuildRelativePath: function(x) {
+		return path.normalize(path.join(__dirname, x));
+	}
 };
 
 function retrieveMetaForModule(moduleName) {

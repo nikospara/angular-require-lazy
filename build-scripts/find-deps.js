@@ -1,19 +1,24 @@
 // find dependencies
 var
 	rjs = require("./lib/r.js"),
+	fs = require("fs"),
 	path = require("path"),
 	extend = require("./lib/extend"),
 	shared = require("./shared"),
+	mapPathInverse = require("./map-path-inverse"),
 
 	LIB_LAZY = "lazy",
 	PREFIX_LAZY = LIB_LAZY + "!";
 
 
 function findDeps(options, config, callback) {
-	var entryModule = options.entryModule || config.name;
+	var entryModule = options.entryModule || config.name, mainConfig;
 	
 	options = extend(true, {}, options);
 	options.baseUrl = config.baseUrl;
+	
+	mainConfig = loadMainConfig(options, config);
+	mapPathInverse.setMainConfig(mainConfig);
 	
 	config = extend(true, {}, config);
 	// deleting these two signals single file optimization
@@ -31,6 +36,28 @@ function findDeps(options, config, callback) {
 	}));
 	
 	buildAllModules(options, config, entryModule, callback);
+}
+
+function loadMainConfig(options, config) {
+	var ret = null, mainConfigFileContents;
+	if( config && config.mainConfigFile ) {
+		if( typeof(options.makeBuildRelativePath) !== "function" ) throw new Error("options should contain a method makeBuildRelativePath()");
+		mainConfigFileContents = fs.readFileSync(options.makeBuildRelativePath(config.mainConfigFile), {encoding:"UTF-8"});
+		ret = evalMainConfig();
+	}
+	return ret;
+	
+	function evalMainConfig() {
+		var realRequire = require, requirejs, originalObject, config;
+		originalObject = require = requirejs = {
+			config: function(cfg) { config = cfg; } // configuration with the `require.config(...)` or `requirejs.config(...)` case
+		};
+		eval(mainConfigFileContents);
+		if( require !== originalObject ) config = require; // configuration with the `var require = ...` case
+		else if( requirejs !== originalObject ) config = requirejs; // configuration with the `var requirejs = ...` case
+		require = realRequire;
+		return config;
+	}
 }
 
 function buildAllModules(options, config, entryModule, callback) {
@@ -88,7 +115,7 @@ function buildAllModules(options, config, entryModule, callback) {
 							parentName: config.name
 						});
 					}
-					else modules[config.name].deps.push(moduleName);
+					else modules[config.name].deps.push(mapPathInverse(moduleName));
 				}
 			}
 			else if( a[i].indexOf("-----") === 0 ) {
