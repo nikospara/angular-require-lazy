@@ -6,13 +6,14 @@ An example-experimental application for mixing [AngularJS](http://angularjs.org/
 Changes
 -------
 
+- (2013/10/24) Changed the framework to be more Angular-like. Kept old framework in `angular-plugin` branch.
 - (2013/09/15) Added a lazy directive example, see `scripts/app/modules/categories/category-directive.js`.
 
 Preface
 -------
 
 This is an example application for keeping track of personal/family expenses.
-This is still work in progress and open for discussion. Its main purpose is to demonstrate the mixing of Angular-Require-Lazy,
+This is still work in progress and open for discussion. Its main purpose is to demonstrate the mixing of Angular and require-lazy,
 not to be functionaly complete, at least at this stage.
 
 Requirements
@@ -31,6 +32,8 @@ Run
 
 Build and run
 -------------
+
+(Steps 1 & 2 above are prerequisites)
 
 1. `cd build-scripts`
 2. `./bootstrap.sh` or `bootstrap.bat` to compile bootstrap
@@ -56,22 +59,25 @@ and [require-lazy](https://github.com/nikospara/require-lazy).
 
 The noteworthy points are:
 
-- AngularJS modules are lazy loaded.
-- Directives can be lazy loaded too, using `lib/angular-require/lazy-directives` (see `scripts/app/modules/categories/category-directive.js`).
+- AngularJS modules can be lazy loaded. Even pure Angular modules, like the demonstrated case with `ngGrid` (see the "Expenses" view).
+- Directives can be lazy loaded too, using the `currentModule` AMD module (see `scripts/app/modules/categories/category-directive.js`).
 - There is a "module" discovery mechanism: any directory under `app/modules/` that contains a `main.js` script and a `main.metadata.json`
-  can automatically appear in the menu.
+  can automatically appear in the menu (see `build-scripts/discoverModules.js`, this is used both by the build process and by the server).
 - The application is split into bundles automatically using `r.js` standard configuration and require-lazy;
   no further configuration is needed.
 
 How?
 ----
 
-- The providers (e.g. `$controllerProvider`, `$compileProvider`) are captured from a `config` function in `scripts/app/bootstrap.js`
-  and also used from `scripts/lib/angular-require/route-config.js`, `scripts/lib/angular-require/lazy-directives.js`.
-- After bootstraping, the global var `angular` is replaced by our own wrapper that can handle lazy loaded modules (see `makeLazyModule()` in `scripts/app/bootstrap.js`).
-- The injector is captured and provided as a promise (`scripts/lib/angular-require/injector.js`)
-- AMD modules can be converted to Angular modules (see the `define([...,"angular!app/main/main",...])` in `scripts/app/bootstrap.js`, and
-  `scripts/app/main/main.js`).
+- The providers (e.g. `$controllerProvider`, `$compileProvider`) are captured from a `config` function called from `bootstrap.js`.
+  This function is defined in `scripts/lib/angular-require/lazyAngularUtils.js` (`cacheInternals()`).
+- After bootstrapping, we replace Angular's `module()` method with a proxy that can handle lazy loaded modules (see `makeLazyAngular()`
+  and `makeLazyModule()` in `scripts/lib/angular-require/lazyAngularUtils.js`).
+- The injector is captured and provided as a promise (`scripts/lib/angular-require/deferredInjector.js`).
+- Templates can be loaded as text through a RequireJS plugin (as `"templateCache!path/to/my.html"`) and registered with Angular's
+  `$templateCache` with the correct name (here `"path/to/my.html"`).
+- The developer uses the lazy loading mechanism by the special AMD module `currentModule`. This is a proxy to the currently loading
+  Angular module, providing the familiar API (some methods are still under development).
 - See any view module under `WebContent/scripts/app/modules/` to see the implementation of a view; this is the actual code a developer would
   write, i.e. application code, not framework code.
 
@@ -83,5 +89,5 @@ smoothly with RequireJS out of the box, so I have been experimenting with this i
 
 I believe this can be further improved and I hope it will contribute to a solution brdging the worlds of AMD and Angular modules.
 
-The providers capturing technique (implemented in `scripts/lib/angular-require/route-config.js` and `scripts/lib/angular-require/lazy-directives.js`)
+The providers capturing technique (implemented in `scripts/lib/angular-require/lazyAngularUtils.js`)
 is based heavily on [angularjs-requirejs-lazy-controllers](https://github.com/matys84pl/angularjs-requirejs-lazy-controllers).
