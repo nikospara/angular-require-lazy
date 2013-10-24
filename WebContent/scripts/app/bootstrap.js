@@ -1,11 +1,13 @@
-define(["angular", "app/main", "lib/angular-require/lazyAngularUtils", "lib/angular-require/routeConfig", "deferredInjector", "lazy-registry", "app/constants"],
-function(angular, main, lazyAngularUtils, routeConfig, deferredInjector, lazyRegistry, constants) {
+define(["angular", "app/main", "lib/angular-require/lazyAngularUtils", "lib/angular-require/routeConfig", "deferredInjector", "lazy-registry", "currentModule", "app/constants"],
+function(angular, main, lazyAngularUtils, routeConfig, deferredInjector, lazyRegistry, currentModule, constants) {
 	"use strict";
 	
 	var j;
 	
 	main.config(["$routeProvider", "$controllerProvider", "$compileProvider", addAllRoutes]);
 	main.config(lazyAngularUtils.cacheInternals);
+	
+	currentModule.resolveWith(main);
 	
 	lazyAngularUtils.makeLazyAngular();
 	
