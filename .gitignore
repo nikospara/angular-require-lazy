@@ -1,4 +1,4 @@
-node_modules/.bin
-node_modules/express
-node_modules/less
+node_modules/*
 build/*
+.directory
+
