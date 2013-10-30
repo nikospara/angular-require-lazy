@@ -26,7 +26,7 @@ Run
 ---
 
 1. Clone the GIT repository
-2. `npm instal`
+2. (`npm install express` if using Option 1 below) or (`npm instal` if using Option 2 below)
 3. `node app.js` to run the server
 4. Hit `http://localhost:8110/app.html`
 
@@ -35,11 +35,22 @@ Build and run
 
 (Steps 1 & 2 above are prerequisites)
 
+### Option 1: With standalone scripts
+
+This option is deprecated and will probably be removed in the future in favor of Grunt.
+
 1. `cd build-scripts`
 2. `./bootstrap.sh` or `bootstrap.bat` to compile bootstrap
 3. `node build.js`
-4. (make sure server is running, see step 3 above)
+4. (make sure server is running &rarr; `node app.js`)
 5. Hit `http://localhost:8110/app-built.html`
+
+### Option 2: Using Grunt (PREFERRED)
+
+1. Make sure `grunt-cli` is installed and the `grunt` command is in PATH.
+2. `grunt` to compile everything
+3. (make sure server is running &rarr; `node app.js`)
+4. Hit `http://localhost:8110/app-built.html`
 
 What happens?
 -------------
