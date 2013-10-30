@@ -47,6 +47,13 @@ This option is deprecated and will probably be removed in the future in favor of
 
 ### Option 2: Using Grunt (PREFERRED)
 
+This option depends on require-lazy-grunt, which is not yet published. You will have to clone it and link it with npm:
+
+	(cd to the directory of require-lazy-grunt)
+	npm link
+	(cd to the directory of angular-require-lazy)
+	npm link require-lazy-grunt
+
 1. Make sure `grunt-cli` is installed and the `grunt` command is in PATH.
 2. `grunt` to compile everything
 3. (make sure server is running &rarr; `node app.js`)
