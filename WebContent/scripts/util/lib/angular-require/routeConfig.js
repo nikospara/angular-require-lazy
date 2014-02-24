@@ -1,5 +1,5 @@
 /** This is based on angularjs-requirejs-lazy-controllers from github. */
-define(["currentModule", "lib/angular-require/lazyAngularUtils"], function(currentModule, lazyAngularUtils) {
+define(["currentModule", "./lazyAngularUtils"], function(currentModule, lazyAngularUtils) {
 	"use strict";
 	
 	function initLazyModules(injector) {

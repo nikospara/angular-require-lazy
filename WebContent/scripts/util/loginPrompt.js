@@ -1,5 +1,5 @@
 define(["deferredInjector", "text!./loginPrompt.html", "jquery",
-	"lib/angular-ui-bootstrap/dialog"
+	"lib/angular-ui-bootstrap/src/modal/modal"
 ], function(deferredInjector, template, $) {
 	"use strict";
 	
@@ -7,12 +7,10 @@ define(["deferredInjector", "text!./loginPrompt.html", "jquery",
 		isOpen = false,
 		
 		opts = {
-			dialogFade: true,
-			backdrop: true,
+			backdrop: "static",
 			keyboard: false,
-			backdropClick: false,
 			template: template,
-			controller: ["$scope", "dialog", LoginCtrl]
+			controller: ["$scope", "$modalInstance", LoginCtrl]
 		};
 	
 	function promptLogin() {
@@ -24,8 +22,8 @@ define(["deferredInjector", "text!./loginPrompt.html", "jquery",
 //				if( d == null ) {
 //					d = inj.get("$dialog").dialog(opts);
 //				}
-				var d = inj.get("$dialog").dialog(opts);
-				d.open().then(
+				var d = inj.get("$modal").open(opts);
+				d.result.then(
 					function(result) { isOpen = false; ret.resolve(result); },
 					function(err) { isOpen = false; ret.reject(err); }
 				);
@@ -39,9 +37,9 @@ define(["deferredInjector", "text!./loginPrompt.html", "jquery",
 		return isOpen;
 	};
 	
-	function LoginCtrl($scope, dialog) {
+	function LoginCtrl($scope, $modalInstance) {
 		$scope.close = function(result) {
-			dialog.close(result);
+			$modalInstance.close(result);
 		};
 	}
 	

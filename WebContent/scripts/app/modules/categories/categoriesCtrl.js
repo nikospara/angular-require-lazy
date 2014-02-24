@@ -1,6 +1,7 @@
 define([
 	"jquery", "app/shared/dao/categoriesDao", "util/viewUtils", "util/returnService", "text!./deleteTemplate.html",
-	"templateCache!./categoriesTemplate.html", "./categoryDirective"
+	"templateCache!./categoriesTemplate.html", "./categoryDirective",
+	"lib/angular-ui-bootstrap/src/modal/modal"
 ],
 function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
 	"use strict";
@@ -8,15 +9,13 @@ function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
 	var ADD_LABEL = "Add", RENAME_LABEL = "Rename", opts;
 	
 	opts = {
-		dialogFade: true,
-		backdrop: true,
+		backdrop: "static",
 		keyboard: false,
-		backdropClick: false,
 		template: templateDelete
 	};
 	
-	EditCategoriesCtrl.$inject = ["$scope", "$q", "$dialog"];
-	function EditCategoriesCtrl($scope, $q, $dialog) {
+	EditCategoriesCtrl.$inject = ["$scope", "$q", "$modal"];
+	function EditCategoriesCtrl($scope, $q, $modal) {
 		
 		var lastAddedCategoryKey;
 		
@@ -82,18 +81,18 @@ function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
 		
 		function deleteCategory(c) {
 			if( c.key == null ) return;
-			opts.controller = ["$scope", "dialog", DeleteCtrl];
-			var d = $dialog.dialog(opts);
-			d.open().then(function(result) {
+			opts.controller = ["$scope", "$modalInstance", DeleteCtrl];
+			var d = $modal.open(opts);
+			d.result.then(function(result) {
 				if( result === "yes" ) {
 					categoriesDao.deleteCategory(c);
 				}
 			});
 			
-			function DeleteCtrl($scope, dialog) {
+			function DeleteCtrl($scope, $modalInstance) {
 				$scope.category = c;
 				$scope.close = function(result) {
-					dialog.close(result);
+					$modalInstance.close(result);
 				};
 			}
 		}

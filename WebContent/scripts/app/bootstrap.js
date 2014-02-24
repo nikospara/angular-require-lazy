@@ -1,4 +1,6 @@
-define(["angular", "app/main", "lib/angular-require/lazyAngularUtils", "lib/angular-require/routeConfig", "deferredInjector", "lazy-registry", "currentModule", "app/constants"],
+define([
+	"angular", "app/main", "util/lib/angular-require/lazyAngularUtils", "util/lib/angular-require/routeConfig",
+	"deferredInjector", "lazy-registry", "currentModule", "app/constants"],
 function(angular, main, lazyAngularUtils, routeConfig, deferredInjector, lazyRegistry, currentModule, constants) {
 	"use strict";
 	

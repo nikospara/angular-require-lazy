@@ -1,4 +1,5 @@
-node_modules/*
-build/*
 .directory
-
+node_modules/*
+WebContent/scripts/lib/*
+!WebContent/scripts/lib/lazyload.js
+build/*

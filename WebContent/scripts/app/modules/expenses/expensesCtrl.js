@@ -1,7 +1,7 @@
 define([
 	"jquery", "app/shared/model/Expense", "app/shared/dao/categoriesDao", "app/shared/dao/userDao", "app/shared/dao/expensesDao",
 	// side-effect deps
-	"templateCache!./expensesTemplate.html", "lib/angular/ng-grid"
+	"templateCache!./expensesTemplate.html", "lib/ng-grid-bower/ng-grid"
 ],
 function($, Expense, categoriesDao, userDao, expensesDao) {
 	"use strict";

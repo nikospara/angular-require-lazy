@@ -1,4 +1,7 @@
-define(["jquery", "util/menuEntries", "app/constants"],
+define([
+	"jquery", "util/menuEntries", "app/constants",
+	"lib/angular-ui-bootstrap/src/collapse/collapse"
+],
 function($, menuEntries, constants) {
 	"use strict";
 	

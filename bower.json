@@ -1,0 +1,19 @@
+{
+	"name": "angular-expenses",
+	"version": "0.1.0",
+	"dependencies": {
+		"angular": "~1.2",
+		"angular-ui-bootstrap": "latest",
+		"requirejs": "latest",
+		"requirejs-text": "latest",
+		"almond": "latest",
+		"jquery": "~2.0.3",
+		"less.js": "latest",
+		"require-lazy": "latest",
+		"ng-grid-bower": "latest",
+		"angular-route": "~1.2"
+	},
+	"devDependencies": {
+	},
+	"private": true
+}
