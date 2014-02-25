@@ -2,7 +2,7 @@ var
 	fs = require("fs"),
 	express = require("express"),
 	app = express(),
-	options = require("./build-scripts/options.js").config,
+	options = require("./build-scripts/options-grunt.js"),
 	shared = require("./build-scripts/shared.js");
 
 app.use(express.logger('dev'));
