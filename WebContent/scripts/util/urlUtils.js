@@ -1,4 +1,4 @@
-define(["jquery"], function($) {
+define(["jquery", "globals"], function($, globals) {
 	"use strict";
 	
 	var pathParamRe = /\{([a-zA-Z0-9]+)\}/;
@@ -38,6 +38,7 @@ define(["jquery"], function($) {
 			var split, tmp, i, params={}, components=[];
 			split = this._uri.split("/");
 			for( i=0; i < split.length; i++ ) {
+				if( !split[i] ) continue;
 				if( pathParamRe.test(split[i]) ) {
 					tmp = pathParamRe.exec(split[i])[1];
 					params[tmp] = i;
@@ -73,9 +74,14 @@ define(["jquery"], function($) {
 		return pathNow;
 	}
 	
+	function makeContextPath(path) {
+		return appendPath(globals.contextPath.substr(1), path);
+	}
+	
 	return {
-		contextPath: "",
+		contextPath: globals.contextPath,
 		Route: Route,
-		appendPath: appendPath
+		appendPath: appendPath,
+		makeContextPath: makeContextPath
 	};
 });

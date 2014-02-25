@@ -27,6 +27,7 @@ function($, Expense, categoriesDao, userDao, expensesDao) {
 		function initExpenses() {
 			// TODO Determine month and year, route params
 			var ret = expensesDao.fetch(2013);
+ret.$then(function(){console.log(arguments);});
 			return ret;
 		}
 		

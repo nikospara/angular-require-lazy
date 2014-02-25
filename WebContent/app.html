@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8" />
@@ -12,7 +12,12 @@
 	<!--[if IE 8]>
 	<link href="css/ie8.css" rel="stylesheet" />
 	<![endif]-->
-	<script src="scripts/lib/less.js/dist/less-1.5.0.js" type="text/javascript"></script>
+	<script src="scripts/lib/less.js/dist/less-1.6.2.js" type="text/javascript"></script>
+	<script>
+		var globals = {
+			contextPath: "/"
+		}, baseUrl;
+	</script>
 </head>
 <body>
 	<div id="navbar" class="navbar navbar-inverse navbar-fixed-top" x-ng-include="'app/main/navbar.html'"></div>
@@ -21,14 +26,14 @@
 		<div x-ng-view=""></div>
 	</div>
 	
-	<!-- BOOTSTRAPING -->
-	<script src="scripts/lib/requirejs/require.js"></script>
-	<script src="scripts/lib/jquery/jquery.js"></script>
 	<!-- CONFIGURATION -->
 	<script src="scripts/require-cfg.js"></script>
 	<script>
 		// customize require configuration, e.g. locale
 	</script>
+	<!-- BOOTSTRAPING -->
+	<script src="scripts/lib/requirejs/require.js"></script>
+	<script src="scripts/lib/jquery/jquery.js"></script>
 	<!-- BOOTSTRAP APPLICATION AND CALL APP/MAIN -->
 	<script>
 		jQuery(function() {

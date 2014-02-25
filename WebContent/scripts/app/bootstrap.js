@@ -1,26 +1,32 @@
 define([
 	"angular", "app/main", "util/lib/angular-require/lazyAngularUtils", "util/lib/angular-require/routeConfig",
-	"deferredInjector", "lazy-registry", "currentModule", "app/constants"],
-function(angular, main, lazyAngularUtils, routeConfig, deferredInjector, lazyRegistry, currentModule, constants) {
-	"use strict";
+	"lazy-registry", "currentModule", "app/constants", "$injector"
+],
+function(angular, main, lazyAngularUtils, routeConfig, lazyRegistry, currentModule, constants, $injector) {
+//	"use strict";
 	
 	var j;
 	
-	main.config(["$routeProvider", "$controllerProvider", "$compileProvider", addAllRoutes]);
+	main.config(["$routeProvider", addAllRoutes]);
 	main.config(lazyAngularUtils.cacheInternals);
 	
 	currentModule.resolveWith(main);
 	
 	lazyAngularUtils.makeLazyAngular();
 	
-//	j = angular.injector(["ng",main.name]);
-//	angular.extend(injector, j);
-//	j.invoke(["$rootScope", "$compile", "$document", function($rootScope, $compile, $document) {
-//		$compile($document)($rootScope);
-//		$rootScope.$digest();
-//	}]);
+//	window.name = "NG_DEFER_BOOTSTRAP!" + window.name;
 	j = angular.bootstrap(document, [main.name]);
-	deferredInjector.set(j);
+	angular.extend($injector, j);
+//	angular.resumeBootstrap();
+	
+	function addAllRoutes($routeProvider) {
+		var module, i, modules = lazyRegistry.getModules();
+		for( i=0; i < modules.length; i++ ) {
+			module = modules[i];
+			addAllRoutesForModule($routeProvider, module);
+		}
+		$routeProvider.otherwise({redirectTo: constants.HOME_PATH});
+	}
 	
 	function addAllRoutesForModule($routeProvider, module) {
 		var routes, i, route;
@@ -31,14 +37,5 @@ function(angular, main, lazyAngularUtils, routeConfig, deferredInjector, lazyReg
 				$routeProvider.when(route.path, routeConfig.fromAmdModule(route,module));
 			}
 		}
-	}
-	
-	function addAllRoutes($routeProvider, $controllerProvider, $compileProvider) {
-		var module, i, modules = lazyRegistry.getModules();
-		for( i=0; i < modules.length; i++ ) {
-			module = modules[i];
-			addAllRoutesForModule($routeProvider, module);
-		}
-		$routeProvider.otherwise({redirectTo: constants.HOME_PATH});
 	}
 });

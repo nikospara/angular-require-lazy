@@ -4,7 +4,7 @@ define(["util/resource", "util/loginPrompt", "jquery"], function(resource, promp
 	var userData = null, rc, loggedIn = false, loginPending = false;
 	
 	rc = resource("api/user", {}, {
-		login: { type:"POST", url:"api/user/login" }
+		login: { method:"POST", url:"api/user/login" }
 	});
 	
 	function login(username, password, callback, errback) {

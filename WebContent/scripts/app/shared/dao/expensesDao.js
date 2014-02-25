@@ -4,13 +4,16 @@ define(["app/shared/model/Expense", "util/resource", "./userDao", "jquery"], fun
 	var rc;
 	
 	rc = resource("api/user/{id}/expenses", {}, {
-		fetch: { type:"GET", isArray:true, transformResponse: function(data, headersGetter, allHeadersGetter) {
+		fetch: { method:"GET", isArray:true, transformResponse: function(data, headersGetter) {
+			if( data == null ) return null;
+			if( typeof(data) === "string" ) data = JSON.parse(data);
 			if( data == null || !$.isArray(data.payload) ) return;
 			for( var i=0; i < data.payload.length; i++ ) {
 				data.payload[i] = new Expense(data.payload[i]);
 			}
+			return data;
 		}},
-		add: { type:"POST" }
+		add: { method:"POST" }
 	});
 	
 	function fetch(year,month,success,failure) {

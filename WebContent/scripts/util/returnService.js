@@ -1,85 +1,79 @@
-define(["deferredInjector"], function(deferredInjector) {
+define(["$injector"], function($injector) {
 	"use strict";
 	
 	var stack = [], pushing = false, pushed = false, returning = false, returned = false, startController = null, currentState = null,
 		currentPushedData = null, currentReturnedData = null;
 	
-	deferredInjector.get().then(function(inj) {
-		var $rootScope = inj.get("$rootScope");
+	var $rootScope = $injector.get("$rootScope");
 		
-		$rootScope.$on("$routeChangeSuccess", function(event, currentRoute, previousRoute) {
+	$rootScope.$on("$routeChangeSuccess", function(event, currentRoute, previousRoute) {
 //console.log("SUCCESS: %o %o %o", event, currentRoute, previousRoute);
-			if( pushing ) {
+		if( pushing ) {
 //console.log("PUSHED");
-				// TODO
-			}
-			else if( returning ) {
+			// TODO
+		}
+		else if( returning ) {
 //console.log("RETURNED");
-				// TODO
-			}
-			else {
-				clear();
-			}
-			startController = null;
-			pushing = false;
-			returning = false;
-		});
+			// TODO
+		}
+		else {
+			clear();
+		}
+		startController = null;
+		pushing = false;
+		returning = false;
+	});
 		
-		$rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+	$rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
 //console.log("START: %o %o %o", event, nextRoute, currentRoute);
-			startController = currentRoute.controller;
-		});
+		startController = currentRoute.controller;
+	});
 		
-		$rootScope.$on("$routeChangeError", function(event, currentRoute, previousRoute, rejection) {
+	$rootScope.$on("$routeChangeError", function(event, currentRoute, previousRoute, rejection) {
 //console.warn("ERROR HANDLING NOT DONE");
-			if( pushing ) {
+		if( pushing ) {
 //console.log("PUSHED");
-				// TODO
-			}
-			else if( returning ) {
+			// TODO
+		}
+		else if( returning ) {
 //console.log("RETURNED");
-				// TODO
-			}
-			else {
-				clear();
-			}
-			startController = null;
-			pushing = false;
-			returning = false;
-		});
+			// TODO
+		}
+		else {
+			clear();
+		}
+		startController = null;
+		pushing = false;
+		returning = false;
 	});
 	
 	function push(data, targetView) {
-		deferredInjector.get().then(function(inj) {
-			var $location = inj.get("$location");
-			pushing = true;
-			stack.push({
-				location: $location.hash(),
-				currentState: currentState,
-				currentPushedData: currentPushedData,
-				pushed: pushed,
-				returned: returned
-			});
-			currentState = null;
-			currentPushedData = data;
-			// set those here because the view gets rendered before the routeChangeSuccess event
-			pushed = true;
-			returned = false;
-			if( typeof(targetView) === "string" ) $location.hash(targetView);
+		var $location = $injector.get("$location");
+		pushing = true;
+		stack.push({
+			location: $location.hash(),
+			currentState: currentState,
+			currentPushedData: currentPushedData,
+			pushed: pushed,
+			returned: returned
 		});
+		currentState = null;
+		currentPushedData = data;
+		// set those here because the view gets rendered before the routeChangeSuccess event
+		pushed = true;
+		returned = false;
+		if( typeof(targetView) === "string" ) $location.hash(targetView);
 	}
 	
 	function doReturn(data) {
-		deferredInjector.get().then(function(inj) {
-			var $location = inj.get("$location"), frame = stack.pop();
-			returning = true;
-			currentState = frame.currentState;
-			currentPushedData = frame.currentPushedData;
-			currentReturnedData = data;
-			pushed = frame.pushed;
-			returned = true;
-			$location.hash(frame.location);
-		});
+		var $location = $injector.get("$location"), frame = stack.pop();
+		returning = true;
+		currentState = frame.currentState;
+		currentPushedData = frame.currentPushedData;
+		currentReturnedData = data;
+		pushed = frame.pushed;
+		returned = true;
+		$location.hash(frame.location);
 	}
 	
 	function getPushedData() {

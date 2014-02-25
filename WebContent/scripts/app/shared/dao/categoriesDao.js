@@ -4,10 +4,10 @@ define(["util/resource", "./userDao", "jquery"], function(resource, userDao, $) 
 	var cachedCategories = null, cachedCategoriesMap = null, rc;
 	
 	rc = resource("api/user/{id}/categories", {}, {
-		fetchForUser: { isArray:true, type:"GET" },
-		addCategory: { type:"POST" },
-		deleteCategory: { urlAppend:"{key}", type:"DELETE" },
-		updateCategory: { type:"PUT" }
+		fetchForUser: { isArray:true, method:"GET" },
+		addCategory: { method:"POST" },
+		deleteCategory: { urlAppend:"{key}", method:"DELETE" },
+		updateCategory: { method:"PUT" }
 	});
 	
 	function fetchForCurrentUser() {

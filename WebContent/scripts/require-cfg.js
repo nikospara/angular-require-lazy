@@ -1,4 +1,4 @@
-require.config({
+var require = {
 	baseUrl: "scripts",
 	
 	paths: {
@@ -10,7 +10,8 @@ require.config({
 //		"i18n": "lib/require/i18n",
 		"deferredInjector": "util/lib/angular-require/deferredInjector",
 		"currentModule": "util/lib/angular-require/currentModule",
-		"templateCache": "util/lib/angular-require/templateCache"
+		"templateCache": "util/lib/angular-require/templateCache",
+		"$injector": "util/lib/angular-require/services/$injector"
 	},
 	
 	packages: ["app/main", "app/modules/index", "app/modules/categories", "app/modules/expenses"],
@@ -20,6 +21,9 @@ require.config({
 	},
 	
 	shim: {
+		"globals": {
+			exports: "globals"
+		},
 		"angular": {
 			exports: "angular"
 		},
@@ -36,4 +40,4 @@ require.config({
 			deps: ["angular"]
 		}
 	}
-});
+};

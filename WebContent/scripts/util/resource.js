@@ -1,8 +1,8 @@
-define(["jquery", "./urlUtils", "deferredInjector"], function($, uu, deferredInjector) {
+define(["jquery", "./urlUtils", "$injector"], function($, uu, $injector) {
 	"use strict";
 	
 	function extractArgs(hasBody, args) {
-		var params = {}, data, success = $.noop, error = null, alen,
+		var params = {}, data = null, success = $.noop, error = null, alen,
 			a1 = args[0], a2 = args[1], a3 = args[2], a4 = args[3];
 		
 		for( alen = args.length; typeof(args[alen-1]) === "undefined" && alen > 0; alen-- );
@@ -72,19 +72,22 @@ define(["jquery", "./urlUtils", "deferredInjector"], function($, uu, deferredInj
 	function makeInnerThen(paramNames, args, route, paramDefaults, hasBody, ret, opts) {
 		return function() {
 			var j, params = {}, innerPromise, url, queryParams, ajaxOpts;
-			for( j=0; j < arguments.length; j++ ) {
-				params[paramNames[j]] = arguments[j];
+			for( j=0; j < arguments[0].length; j++ ) {
+				params[paramNames[j]] = arguments[0][j];
 			}
 			args.params = params;
 			// continue normally
 			url = route.applyParams($.extend({},paramDefaults,args.params));
 			queryParams = url.queryParams;
 			url = url.uri;
-			ajaxOpts = $.extend({url:url,dataType:"json",contentType:"application/json"}, opts);
+//XXX-DONE
+			ajaxOpts = $.extend({url:url}, opts);
 			delete ajaxOpts.isArray;
+			delete ajaxOpts.transformResponse;
 			addData(hasBody, ajaxOpts, queryParams, args.data);
-			innerPromise = $.ajax(ajaxOpts);
-			innerPromise.always(function() {
+//XXX-DONE
+			innerPromise = $injector.get("$http")(ajaxOpts);
+			innerPromise["finally"](function() {
 				ret.$resolved = true;
 			});
 			return innerPromise;
@@ -92,7 +95,7 @@ define(["jquery", "./urlUtils", "deferredInjector"], function($, uu, deferredInj
 	}
 	
 	function makeAjaxMethod(route, paramDefaults, opts, isArray) {
-		var hasBody = (opts.type === "POST" || opts.type === "PUT" || opts.type === "PATCH"),
+		var hasBody = (opts.method === "POST" || opts.method === "PUT" || opts.method === "PATCH"),
 			handleData = isArray ? handleArrayData : handleObjectData;
 		
 		if( opts.url ) route = new uu.Route(opts.url);
@@ -101,11 +104,14 @@ define(["jquery", "./urlUtils", "deferredInjector"], function($, uu, deferredInj
 		// this function is returned to the client and gets called to access the resource
 		return function ajaxMethod(a1, a2, a3, a4) {
 			var args = extractArgs(hasBody, [a1, a2, a3, a4]),
-				promise, paramNames = [], paramVals = [],
-				ret = isArray ? [] : {};
+//XXX-DONE
+				promise, paramNames = [], paramVals = [],// inj,
+				ret = isArray ? [] : {},
+				$q = $injector.get("$q");
 			
 			if( $.isFunction(args.params.then) ) {
-				promise = args.params.then(
+//XXX-DONE
+				promise = $q.when(args.params).then(
 					function(params) {
 						args.params = params;
 						return executeDeferred();
@@ -126,7 +132,8 @@ define(["jquery", "./urlUtils", "deferredInjector"], function($, uu, deferredInj
 					paramVals.push(args.params[i]);
 				}
 				
-				innerPromise = $.when.apply($,paramVals).then(
+//XXX-DONE
+				innerPromise = $q.all(paramVals).then(
 					makeInnerThen(paramNames, args, route, paramDefaults, hasBody, ret, opts),
 					args.error
 				);
@@ -135,33 +142,49 @@ define(["jquery", "./urlUtils", "deferredInjector"], function($, uu, deferredInj
 			}
 			
 			ret.$resolved = false;
+			
+//XXX-DONE
 			ret.$then = promise.then(
-				function(data, status, jqxhr) {
+				function(response) {//REMOVE:xhrArguments
+					var data = response.data;
+//XXX-DONE
+//					inj = j;
 					if( $.isFunction(opts.transformResponse) ) {
-						data = callTransformation(opts.transformResponse, data, jqxhr);
+//XXX-DONE (xhrArguments[2] -> response.headers)
+						data = callTransformation(opts.transformResponse, data, response.headers);
 					}
 					if( data != null ) handleData(data, ret);
-					jqxhr.resource = ret;
-					if( $.isFunction(args.success) ) args.success(data, status, jqxhr);
+//XXX-???-REMOVED
+//					xhrArguments[2].resource = ret;
+//XXX-DONE (xhrArguments[1], xhrArguments[2] -> response.headers)
+					if( $.isFunction(args.success) ) args.success(data, response.headers);
+//XXX-DONE
+//					injector.applySafeWith(inj);
+					return data;
 				},
-				args.error
+				function() {
+					if( $.isFunction(args.error) ) args.error();
+//XXX-DONE
+//					injector.applyEventually();
+				}
 			).then;
-			
-			promise.always(deferredInjector.applyEventually);
 			
 			return ret;
 		};
 	}
 	
-	function callTransformation(transformation, data, jqXhr) {
+//XXX-DONE
+	function callTransformation(transformation, data, headers) {//REMOVE:jqXhr
 		var res = transformation.call(
 			null,
 			data,
 			function headersGetter(name) {
-				return jqXhr.getResponseHeader(name);
-			},
-			function allHeadersGetter() {
-				return jqXhr.getAllResponseHeaders();
+//XXX-DONE
+				return headers(name);
+//XXX-INCOMPATIBLE-REMOVED
+//			},
+//			function allHeadersGetter() {
+//				return jqXhr.getAllResponseHeaders();
 			}
 		);
 		return typeof(res) !== "undefined" ? res : data;
@@ -176,7 +199,7 @@ define(["jquery", "./urlUtils", "deferredInjector"], function($, uu, deferredInj
 	}
 	
 	function handleObjectData(data, ret) {
-		if( typeof(data.payload) === "object" ) data = data.payload;
+//		if( typeof(data.payload) === "object" ) data = data.payload;
 		$.extend(ret,data,{$resolved:ret.$resolved});
 	}
 	
