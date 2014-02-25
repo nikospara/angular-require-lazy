@@ -49,7 +49,7 @@ define(["angular"], function(angular) {
 				else ret = eagerAngularModuleFn.call(angular, name);
 			}
 			else {
-if( configFn != null ) throw new Error("config function unimplemented yet, module: " + name);
+//if( configFn != null ) throw new Error("config function unimplemented yet, module: " + name);
 				ret = makeLazyModule(name, cachedInternals);
 				lazyModules[name] = ret;
 				ret.realModule = eagerAngularModuleFn.call(angular, name, requires, configFn);
