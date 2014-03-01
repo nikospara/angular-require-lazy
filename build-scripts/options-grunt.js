@@ -16,7 +16,7 @@ module.exports = {
 function retrieveMetaForModule(moduleName) {
 	var
 		 stat = null,
-		 filename = path.normalize(path.join(__dirname, "../WebContent/scripts/", moduleName + "/main.metadata.json")),
+		 filename = path.normalize(path.join(__dirname, "../WebContent/scripts/", moduleName + ".metadata.json")),
 		 ret = null;
 	try {
 		stat = fs.statSync(filename);

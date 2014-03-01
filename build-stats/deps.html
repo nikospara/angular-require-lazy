@@ -1,0 +1,20 @@
+<div>
+	<a ng-click="toggleDeps($event)" href="#" class="btn"><span ng-if="!flag">+</span><span ng-if="flag">&ndash;</span></a>
+	{{heading}}<span ng-if="!flag">&hellip;</span><span ng-if="flag">:</span>
+	<table ng-if="flag" cellspacing="0">
+		<thead>
+			<tr>
+				<th class="number">#</th>
+				<th>AMD Module</th>
+				<th>Bundle</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="dep in deps">
+				<td class="number">{{$index+1}}.</td>
+				<td>{{dep}}</td>
+				<td><a ng-href="#/bundles?b={{depsToBundleMap[dep].id}}">{{depsToBundleMap[dep].id}}</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

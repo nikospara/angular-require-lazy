@@ -1,5 +1,5 @@
 define([
-	"angular", "app/main", "util/lib/angular-require/lazyAngularUtils", "util/lib/angular-require/routeConfig",
+	"angular", "app/main/main", "util/lib/angular-require/lazyAngularUtils", "util/lib/angular-require/routeConfig",
 	"lazy-registry", "currentModule", "app/constants", "$injector"
 ],
 function(angular, main, lazyAngularUtils, routeConfig, lazyRegistry, currentModule, constants, $injector) {

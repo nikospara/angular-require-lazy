@@ -14,8 +14,6 @@ var require = {
 		"$injector": "util/lib/angular-require/services/$injector"
 	},
 	
-	packages: ["app/main", "app/modules/index", "app/modules/categories", "app/modules/expenses"],
-	
 	config: {
 		
 	},

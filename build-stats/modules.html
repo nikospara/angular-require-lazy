@@ -1,0 +1,25 @@
+<section class="modules">
+	<h1>Modules</h1>
+	<button ng-click="collapseAll()">Collapse All</button>
+	<ul>
+		<li ng-repeat="(mname,module) in modules | orderBy:module.index">
+			<a ng-click="toggle(module, $event)" href="#" class="btn">{{mname}}</a> <small>{{module.hash}}</small>
+			<div ng-if="module.$ui.on">
+				<div>
+					Parents:
+					[<ul class="inline-list">
+						<li ng-repeat="parent in module.parents">{{parent}}</li>
+					</ul>]
+				</div>
+				<deps-list heading="Dependencies" item="module" deps="module.deps" flag="module.$ui.depsOn"></deps-list>
+				<div>
+					Bundle Dependencies:
+					[<ul class="inline-list">
+						<li ng-repeat="bd in module.bundleDeps"><a ng-href="#/bundles?b={{bd.id}}">{{bd.id}}</a></li>
+					</ul>]
+				</div>
+				<deps-list heading="Excluded Dependencies" item="module" deps="module.excludedDeps" flag="module.$ui.exclDepsOn"></deps-list>
+			</div>
+		</li>
+	</ul>
+</section>

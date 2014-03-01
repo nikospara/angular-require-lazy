@@ -1,0 +1,12 @@
+<section class="bundles">
+	<h1>Bundles</h1>
+	<button ng-click="collapseAll()">Collapse All</button>
+	<ul>
+		<li ng-repeat="bundle in bundles">
+			<a ng-click="toggle(bundle, $event)" href="#" class="btn">{{bundle.id}}</a> Exclusive: {{bundle.exclusive}}<span ng-if="bundle.includedIn"> Included in: {{bundle.includedIn}}</span>
+			<div ng-if="bundle.$ui.on">
+				<deps-list heading="Dependencies" item="bundle" deps="bundle.deps" flag="bundle.$ui.depsOn"></deps-list>
+			</div>
+		</li>
+	</ul>
+</section>

@@ -28,8 +28,8 @@ module.exports = function(grunt) {
 				callback: function(modules, pmresult) {
 					// This callback is optional; included here just for demonstration purposes.
 					var fs = require("fs"), util = require("util"), path = require("path");
-					fs.writeFileSync(path.join(options.outputBaseDir, "modules.js"), util.inspect(modules,{depth:null,colors:false}));
-					fs.writeFileSync(path.join(options.outputBaseDir, "bundles.js"), util.inspect(pmresult.bundles,{depth:null,colors:false}));
+					fs.writeFileSync(path.join(options.outputBaseDir+"-stats", "modules.js"), "angular.module(\"app\").value(\"modules\"," + util.inspect(modules,{depth:null,colors:false}) + ");");
+					fs.writeFileSync(path.join(options.outputBaseDir+"-stats", "bundles.js"), "angular.module(\"app\").value(\"bundles\"," + util.inspect(pmresult.bundles,{depth:null,colors:false}) + ");");
 				}
 			}
 		},

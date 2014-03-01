@@ -7,7 +7,7 @@ function discoverModules() {
 	for( i=0; i < filenames.length; i++ ) {
 		stat = fs.statSync(path.join(modulesDir, filenames[i], "main.metadata.json"));
 		if( stat != null && stat.isFile() ) {
-			res.push("app/modules/" + filenames[i]);
+			res.push("app/modules/" + filenames[i] + "/main");
 		}
 	}
 	return res;

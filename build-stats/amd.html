@@ -1,0 +1,13 @@
+<section class="amd">
+	<h1>AMD Modules</h1>
+	<table cellspacing="0">
+		<tbody>
+			<tr ng-repeat="(k,v) in depsToBundleMap">
+				<td>{{k}}</td>
+				<td><a ng-href="#/bundles?b={{v.id}}">{{v.id}}</a></td>
+				<td><span ng-if="v.exclusive">Exclusive</span></td>
+				<td><span ng-if="v.includedIn">{{v.includedIn}}</span></td>
+			</tr>
+		</tbody>
+	</table>
+</section>

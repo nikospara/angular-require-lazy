@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Stats</title>
+	<style>
+		.inline-list {
+			margin: 0;
+			padding: 0;
+			display: inline-block;
+		}
+		.inline-list li {
+			display: inline-block;
+		}
+		.inline-list li:not(:first-child):before {
+			content: ", ";
+		}
+		
+		a.btn {
+			text-decoration: none;
+		}
+		a.btn:hover {
+			background-color: #FFD040;
+		}
+		.number {
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+	<header><a href="#/modules">Modules</a> | <a href="#/bundles">Bundles</a> | <a href="#/amd">AMD Modules</a></header>
+	<div ng-app="app">
+		<div x-ng-view=""></div>
+	</div>
+	<!--
+	<div ng-controller="SanityCtrl" style="border-top: 1px solid #CCCCCC;">
+		
+	</div>
+	-->
+	
+	<script src="../WebContent/scripts/lib/angular/angular.js"></script>
+	<script src="../WebContent/scripts/lib/angular-route/angular-route.js"></script>
+	<script src="stats.js"></script>
+	<script src="modules.js"></script>
+	<script src="bundles.js"></script>
+</body>
+</html>
