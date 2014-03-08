@@ -3,7 +3,7 @@ var
 	express = require("express"),
 	app = express(),
 	options = require("./build-scripts/options-grunt.js"),
-	shared = require("./build-scripts/shared.js");
+	shared = require("require-lazy").shared;
 
 app.use(express.logger('dev'));
 app.use(express.static(__dirname + '/build'));

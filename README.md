@@ -6,6 +6,9 @@ An example-experimental application for mixing [AngularJS](http://angularjs.org/
 Changes
 -------
 
+- (2014/03/08) 
+    1. Angular's `$injector` is now exposed as AMD module; it is no longer a promise.
+    2. Enabled `module.config()` for lazy Angular modules. THIS IS UNTESTED AND EXPERIMENTAL FOR THE TIME BEING.
 - (2013/10/24) Changed the framework to be more Angular-like. Kept old framework in `angular-plugin` branch.
 - (2013/09/15) Added a lazy directive example, see `scripts/app/modules/categories/category-directive.js`.
 
