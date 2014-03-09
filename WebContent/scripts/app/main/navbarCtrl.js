@@ -5,8 +5,8 @@ define([
 function($, menuEntries, constants) {
 	"use strict";
 	
-	NavbarCtrl.$inject = ["$scope", "$location"];
-	function NavbarCtrl($scope, $location) {
+	NavbarCtrl.$inject = ["$scope", "$location", "$route"];
+	function NavbarCtrl($scope, $location, $route) {
 		
 		$.extend($scope, {
 			isNavbarCollapsed: true,
@@ -17,7 +17,7 @@ function($, menuEntries, constants) {
 		});
 		
 		function isActive(menuEntry) {
-			return $location.path() === menuEntry.path;
+			return $route.current.locals && $route.current.locals.amdModule.name === menuEntry.moduleName;
 		}
 		
 		function isHome() {

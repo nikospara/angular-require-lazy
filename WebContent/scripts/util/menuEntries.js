@@ -16,7 +16,8 @@ define(["lazy-registry"], function(lazyRegistry) {
 			for( i=0; i < meta.length; i++ ) {
 				entries.push({
 					display: meta[i].display,
-					path: meta[i].path
+					path: meta[i].path,
+					moduleName: module.name
 				});
 			}
 		}

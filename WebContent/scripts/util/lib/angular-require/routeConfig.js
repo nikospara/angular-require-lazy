@@ -30,7 +30,7 @@ define(["currentModule", "./lazyAngularUtils"], function(currentModule, lazyAngu
 		return {
 			controller: route.controller,
 			resolve: {
-				delay: ["$q", "$route", "$templateCache", "$injector", function($q, $route, $templateCache, $injector) {
+				module: ["$q", "$route", "$templateCache", "$injector", function($q, $route, $templateCache, $injector) {
 					if( typeof($route.current.template) !== "function" ) {
 						if( templateDefer == null ) templateDefer = $q.defer();
 						$route.current.template = function() {
@@ -53,7 +53,7 @@ define(["currentModule", "./lazyAngularUtils"], function(currentModule, lazyAngu
 								initLazyModules($injector);
 								loaded = true;
 								templateDefer.resolve($templateCache.get(route.template));
-								defer.resolve();
+								defer.resolve(m);
 							}, function(err) {
 								// TODO
 								defer.reject(err);
@@ -62,7 +62,10 @@ define(["currentModule", "./lazyAngularUtils"], function(currentModule, lazyAngu
 					}
 					
 					return defer.promise;
-				}]
+				}],
+				amdModule: function() {
+					return module;
+				}
 			}
 		};
 	}
