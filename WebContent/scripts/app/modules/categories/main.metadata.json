@@ -4,7 +4,8 @@
 			"path": "/categories",
 			"controller": "EditCategoriesCtrl",
 			"template": "app/modules/categories/categoriesTemplate.html",
-			"display": "Categories"
+			"display": "Categories",
+			"weight": 100
 		}
 	]
 }

@@ -7,6 +7,7 @@ define(["lazy-registry"], function(lazyRegistry) {
 			module = modules[i];
 			addMenuEntry(module,ret);
 		}
+		ret.sort(function(a,b) { return a.weight-b.weight; });
 		return ret;
 	}
 	
@@ -17,7 +18,8 @@ define(["lazy-registry"], function(lazyRegistry) {
 				entries.push({
 					display: meta[i].display,
 					path: meta[i].path,
-					moduleName: module.name
+					moduleName: module.name,
+					weight: meta[i].weight
 				});
 			}
 		}

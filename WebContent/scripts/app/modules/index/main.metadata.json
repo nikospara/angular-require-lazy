@@ -4,7 +4,8 @@
 			"path": "/index",
 			"controller": "IndexCtrl",
 			"template": "app/modules/index/indexTemplate.html",
-			"display": "Home"
+			"display": "Home",
+			"weight": 0
 		}
 	]
 }
