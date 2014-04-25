@@ -38,17 +38,9 @@ Build and run
 
 (Steps 1 & 2 above are prerequisites)
 
-### Option 1: With standalone scripts
+(NOTE: There used to be a standalone script based build system; this was deprecated and removed in favor of Grunt.)
 
-This option is deprecated and will probably be removed in the future in favor of Grunt.
-
-1. `cd build-scripts`
-2. `./bootstrap.sh` or `bootstrap.bat` to compile bootstrap
-3. `node build.js`
-4. (make sure server is running &rarr; `node app.js`)
-5. Hit `http://localhost:8110/app-built.html`
-
-### Option 2: Using Grunt (PREFERRED)
+### Using Grunt
 
 This option depends on require-lazy-grunt, which is not yet published. You will have to clone it and link it with npm:
 
