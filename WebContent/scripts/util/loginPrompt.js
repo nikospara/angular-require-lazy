@@ -1,5 +1,5 @@
-define(["text!./loginPrompt.html", "jquery", "$injector", "lib/angular-ui-bootstrap/src/modal/modal"],
-function(template, $, $injector) {
+define(["text!./loginPrompt.html", "$injector", "lib/angular-ui-bootstrap/src/modal/modal"],
+function(template, $injector) {
 	"use strict";
 	
 	var
@@ -12,9 +12,14 @@ function(template, $, $injector) {
 			controller: ["$scope", "$modalInstance", LoginCtrl]
 		},
 	
-		$q = $injector.get("$q");
+		$q;
+	
+//alert("$injector in loginPrompt: ");
+//alert($injector);
+//	$q = $injector.get("$q");
 	
 	function promptLogin() {
+		if( !$q ) $q = $injector.get("$q");
 		var ret = $q.defer();
 		isOpen = true;
 		var d = $injector.get("$modal").open(opts);

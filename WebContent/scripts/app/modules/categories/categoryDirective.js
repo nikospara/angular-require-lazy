@@ -2,8 +2,9 @@ define(["jquery", "app/shared/dao/userDao", "util/viewUtils", "currentModule", "
 function($, userDao, viewUtils, currentModule, template) {
 	"use strict";
 	
-	currentModule.directive("category", [function() {
+	currentModule.directive("category", function() {
 		return {
+			restrict: "A",
 			template: template,
 			replace: true,
 			scope: {
@@ -35,5 +36,5 @@ function($, userDao, viewUtils, currentModule, template) {
 				}
 			}
 		};
-	}]);
+	});
 });

@@ -3,7 +3,7 @@ define([
 	"lazy-registry", "currentModule", "app/constants", "$injector"
 ],
 function(angular, main, lazyAngularUtils, routeConfig, lazyRegistry, currentModule, constants, $injector) {
-//	"use strict";
+	"use strict";
 	
 	var j;
 	

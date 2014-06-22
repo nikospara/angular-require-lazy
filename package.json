@@ -13,6 +13,13 @@
 		"grunt-contrib-clean": "*",
 		"grunt-contrib-copy": "*",
 		"grunt-contrib-less": "*",
-		"bower": "*"
+		"bower": "*",
+		"karma": "*",
+		"karma-jasmine": "~0.2.0",
+		"karma-chrome-launcher": "*",
+		"karma-firefox-launcher": "*",
+		"karma-requirejs": "*",
+		"karma-phantomjs-launcher": "*"
 	}
 }
+

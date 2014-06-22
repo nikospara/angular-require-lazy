@@ -1,4 +1,4 @@
-define(["app/shared/model/Expense", "util/resource", "./userDao", "jquery"], function(Expense, resource, userDao, $) {
+define(["app/shared/model/Expense", "util/resource", "./userDao", "angular"], function(Expense, resource, userDao, angular) {
 	"use strict";
 	
 	var rc;
@@ -7,7 +7,7 @@ define(["app/shared/model/Expense", "util/resource", "./userDao", "jquery"], fun
 		fetch: { method:"GET", isArray:true, transformResponse: function(data, headersGetter) {
 			if( data == null ) return null;
 			if( typeof(data) === "string" ) data = JSON.parse(data);
-			if( data == null || !$.isArray(data.payload) ) return;
+			if( data == null || !angular.isArray(data.payload) ) return;
 			for( var i=0; i < data.payload.length; i++ ) {
 				data.payload[i] = new Expense(data.payload[i]);
 			}
