@@ -6,10 +6,11 @@ An example-experimental application for mixing [AngularJS](http://angularjs.org/
 Changes
 -------
 
+- (2014/10/03) Added support for testing with [Karma](http://karma-runner.github.io/).
 - (2014/03/08) 
     1. Angular's `$injector` is now exposed as AMD module; it is no longer a promise.
     2. Enabled `module.config()` for lazy Angular modules. THIS IS UNTESTED AND EXPERIMENTAL FOR THE TIME BEING.
-- (2013/10/24) Changed the framework to be more Angular-like. Kept old framework in `angular-plugin` branch.
+- (2013/10/24) Changed the framework to be more Angular-like.
 - (2013/09/15) Added a lazy directive example, see `scripts/app/modules/categories/category-directive.js`.
 
 Preface
@@ -17,7 +18,7 @@ Preface
 
 This is an example application for keeping track of personal/family expenses.
 This is still work in progress and open for discussion. Its main purpose is to demonstrate the mixing of Angular and require-lazy,
-not to be functionaly complete, at least at this stage.
+not to be functionally complete, at least at this stage.
 
 Requirements
 ------------
@@ -29,12 +30,12 @@ Run
 ---
 
 1. Clone the GIT repository
-2. (`npm install express` if using Option 1 below) or (`npm instal` if using Option 2 below)
+2. `npm instal`
 3. `node app.js` to run the server
-4. Hit `http://localhost:8110/app.html`
+4. Hit `http://localhost:8110/app.html` (this is the unbuilt-development version of the application)
 
-Build and run
--------------
+Build, test and run
+-------------------
 
 (Steps 1 & 2 above are prerequisites)
 
@@ -42,17 +43,14 @@ Build and run
 
 ### Using Grunt
 
-This option depends on require-lazy-grunt, which is not yet published. You will have to clone it and link it with npm:
-
-	(cd to the directory of require-lazy-grunt)
-	npm link
-	(cd to the directory of angular-require-lazy)
-	npm link require-lazy-grunt
-
 1. Make sure `grunt-cli` is installed and the `grunt` command is in PATH.
 2. `grunt` to compile everything
 3. (make sure server is running &rarr; `node app.js`)
-4. Hit `http://localhost:8110/app-built.html`
+4. Hit `http://localhost:8110/app-built.html` (this is the built version of the application)
+
+### Testing (with Karma/Jasmine)
+
+Run `karma start --single-run`.
 
 What happens?
 -------------
@@ -60,14 +58,14 @@ What happens?
 This application is set up to load only the scripts it needs for the current view. When the view changes, only the scripts necessary
 for the new view are loaded.
 
-To observe this behaviour open Firebug to the network tab, then load the application.
+To observe this behaviour open Firebug to the network tab, then load the unbuilt-development version of the application.
 Observe the scripts being loaded: `ng-grid-XXX.js` is not needed and not loaded.
-Navigate to the "Expenses" view (top menu). `ng-grid` and the application scripts required for this view are loaded just in time.
+Navigate to the "Expenses" view (top menu). `ng-grid-XXX.js` and the application scripts required for this view are loaded just in time.
 
 The scripts needed for each view are packed together into "bundle" files, when the application is built. So for the expenses view
 `app/modules/expenses/main.js`, `app/modules/expenses/expenses-view.js`, `app/modules/expenses/expenses-template.html`, and
 `ng-grid-2.0.7-debug.js` are bundled into one script file (i.e. `expenses-built.js`) and the file is loaded with a cache-breaking
-hash (the `?v=e1974633ea3017db85324f449bc6479f` request parameter). This process is using [r.js](http://requirejs.org/docs/optimization.html)
+hash (something like a `?v=e1974633ea3017db85324f449bc6479f` request parameter). This process is using [r.js](http://requirejs.org/docs/optimization.html)
 and [require-lazy](https://github.com/nikospara/require-lazy).
 
 The noteworthy points are:
@@ -75,7 +73,8 @@ The noteworthy points are:
 - AngularJS modules can be lazy loaded. Even pure Angular modules, like the demonstrated case with `ngGrid` (see the "Expenses" view).
 - Directives can be lazy loaded too, using the `currentModule` AMD module (see `scripts/app/modules/categories/category-directive.js`).
 - There is a "module" discovery mechanism: any directory under `app/modules/` that contains a `main.js` script and a `main.metadata.json`
-  can automatically appear in the menu (see `build-scripts/discoverModules.js`, this is used both by the build process and by the server).
+  can automatically appear in the menu (see `build-scripts/discoverModules.js`). This is used both by the build process and by the server.
+  The discovery mechanism can be implemented by any server-side technology: you need to auto-generate the `lazy-registry` AMD module.
 - The application is split into bundles automatically using `r.js` standard configuration and require-lazy;
   no further configuration is needed.
 
@@ -100,7 +99,7 @@ Why?
 I believe both RequireJS and AngularJS are very useful libraries/frameworks. I am surprized that Angular does not cooperate
 smoothly with RequireJS out of the box, so I have been experimenting with this implementation.
 
-I believe this can be further improved and I hope it will contribute to a solution brdging the worlds of AMD and Angular modules.
+I believe this can be further improved and I hope it will contribute to a solution bridging the worlds of AMD and Angular modules.
 
 The providers capturing technique (implemented in `scripts/lib/angular-require/lazyAngularUtils.js`)
 is based heavily on [angularjs-requirejs-lazy-controllers](https://github.com/matys84pl/angularjs-requirejs-lazy-controllers).
