@@ -43,7 +43,7 @@ require.config({
 
 	callback: function() {
 		// we need to duplicate the Angular bootstrapping functionality from bootstrap.js
-		require(["angular", "angular-mocks", "app/main/main", "util/lib/angular-require/lazyAngularUtils", "currentModule", "$injector"],
+		require(["angular", "angular-mocks", "mocks/test-main", "util/lib/angular-require/lazyAngularUtils", "currentModule", "$injector"],
 		function(angular, angularMocks, main, lazyAngularUtils, currentModule, $injector) {
 			// dynamically load all test files
 			require(allTestFiles, function() {

@@ -1,4 +1,4 @@
-define(["./categoryDirective", "app/main/main", "currentModule", "angular", "$injector"], function(categoryDirective, main, currentModule, angular, $injector) {
+define(["./categoryDirective", "angular", "$injector"], function(categoryDirective, angular) {
 	describe("The categoryDirective", function() {
 		var scope, wrapperElement, element, $compile;
 		
@@ -9,16 +9,12 @@ define(["./categoryDirective", "app/main/main", "currentModule", "angular", "$in
 			scope.$digest();
 		}
 		
-// XXX "The `inject()` creates new instance of $injector per test" ([ref](https://docs.angularjs.org/api/ngMock/function/angular.mock.inject))
-// XXX So we use AMD $injector instead. I would like to remedy this...
-// 		beforeEach(inject(function($rootScope, _$compile_) {
-// 			scope = $rootScope.$new();
-// 			$compile = _$compile_;
-// 		}));
-		beforeEach(function() {
-			scope = $injector.get("$rootScope").$new();
-			$compile = $injector.get("$compile");
-		});
+		beforeEach(module("test-main"));
+		
+		beforeEach(inject(function($rootScope, _$compile_) {
+			scope = $rootScope.$new();
+			$compile = _$compile_;
+		}));
 		
 		afterEach(function() {
 			scope.$destroy();
