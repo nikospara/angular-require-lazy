@@ -1,4 +1,4 @@
-define(["./categoryDirective", "angular", "$injector"], function(categoryDirective, angular) {
+define(["./categoryDirective", "angular"], function(categoryDirective, angular) {
 	describe("The categoryDirective", function() {
 		var scope, wrapperElement, element, $compile;
 		

@@ -24,7 +24,7 @@
 				<select
 					xxx-ng-required="true" x-ng-model="form.categoryId"
 					x-ng-options="c.key as c.name for c in categories"
-					x-ng-disabled="!categories.$resolved"
+					x-ng-disabled="categories.$$status !== 'SUCCESS'"
 					id="category" name="category" class="input-block-level"
 				></select>
 			</div>

@@ -1,4 +1,4 @@
-define(["angular"], function(angular) {
+define(["angular", "promise-adaptor"], function(angular, promiseAdaptor) {
 	"use strict";
 	
 	var lazyAngularUtils, eagerAngularModuleFn = angular.module, cachedInternals = {}, lazyModules = {};
@@ -59,16 +59,41 @@ define(["angular"], function(angular) {
 		};
 	}
 	
-	lazyAngularUtils = {
-		cacheInternals: ["$provide", "$compileProvider", "$filterProvider", "$controllerProvider",
-			function($provide, $compileProvider, $filterProvider, $controllerProvider) {
-				cachedInternals.$provide = $provide;
-				cachedInternals.$compileProvider = $compileProvider;
-				cachedInternals.$filterProvider = $filterProvider;
-				cachedInternals.$controllerProvider = $controllerProvider;
+	function initLazyModules(injector) {
+		var i, modulesQueue = lazyAngularUtils.modulesQueue;
+		if( modulesQueue != null && modulesQueue.length > 0 ) {
+// TODO Run lazy config functions, not implemented yet
+//			for( i=0; i < modulesQueue.length; i++ ) {
+//				callConfigBlocks(injector, modulesQueue[i]);
+//			}
+			for( i=0; i < modulesQueue.length; i++ ) {
+				callRunBlocks(injector, modulesQueue[i]);
 			}
-		],
+			modulesQueue.splice(0);
+		}
+	}
+	
+	function callRunBlocks(injector, module) {
+		var i, blocks;
+		blocks = module.__runBlocks || [];
+		for( i=0; i < blocks.length; i++ ) {
+			injector.invoke(blocks[i]);
+		}
+	}
+	
+	cacheInternals.$inject = ["$provide", "$compileProvider", "$filterProvider", "$controllerProvider"];
+	function cacheInternals($provide, $compileProvider, $filterProvider, $controllerProvider) {
+		cachedInternals.$provide = $provide;
+		cachedInternals.$compileProvider = $compileProvider;
+		cachedInternals.$filterProvider = $filterProvider;
+		cachedInternals.$controllerProvider = $controllerProvider;
+	}
+	
+	lazyAngularUtils = {
+		cacheInternals: cacheInternals,
+		captureQ: ["$q", promiseAdaptor.setQ],
 		makeLazyAngular: makeLazyAngular,
+		initLazyModules: initLazyModules,
 		modulesQueue: []
 	};
 	

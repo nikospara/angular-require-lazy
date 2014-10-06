@@ -1,28 +1,6 @@
 /** This is based on angularjs-requirejs-lazy-controllers from github. */
-define(["currentModule", "./lazyAngularUtils"], function(currentModule, lazyAngularUtils) {
+define(["./currentModule", "./lazyAngularUtils"], function(currentModule, lazyAngularUtils) {
 	"use strict";
-	
-	function initLazyModules(injector) {
-		var i, modulesQueue = lazyAngularUtils.modulesQueue;
-		if( modulesQueue != null && modulesQueue.length > 0 ) {
-// TODO Run lazy config functions, not implemented yet
-//			for( i=0; i < modulesQueue.length; i++ ) {
-//				callConfigBlocks(injector, modulesQueue[i]);
-//			}
-			for( i=0; i < modulesQueue.length; i++ ) {
-				callRunBlocks(injector, modulesQueue[i]);
-			}
-			modulesQueue.splice(0);
-		}
-	}
-	
-	function callRunBlocks(injector, module) {
-		var i, blocks;
-		blocks = module.__runBlocks || [];
-		for( i=0; i < blocks.length; i++ ) {
-			injector.invoke(blocks[i]);
-		}
-	}
 	
 	function fromAmdModule(route,module) {
 		var defer, templateDefer, loaded = false;
@@ -50,7 +28,7 @@ define(["currentModule", "./lazyAngularUtils"], function(currentModule, lazyAngu
 								
 								currentModule.resolveWith(m);
 								// init any angular modules that were lazy loaded
-								initLazyModules($injector);
+								lazyAngularUtils.initLazyModules($injector);
 								loaded = true;
 								templateDefer.resolve($templateCache.get(route.template));
 								defer.resolve(m);
@@ -71,7 +49,6 @@ define(["currentModule", "./lazyAngularUtils"], function(currentModule, lazyAngu
 	}
 	
 	return {
-		fromAmdModule: fromAmdModule,
-		initLazyModules: initLazyModules
+		fromAmdModule: fromAmdModule
 	};
 });

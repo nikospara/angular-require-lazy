@@ -4,11 +4,12 @@
 	"mainConfigFile": "WebContent/scripts/require-cfg.js",
 	"dir": "../build/IRRELEVANT",
 	"inlineText": true,
-	"name": "app/bootstrap",
+	"name": "app/main/main",
 	"optimize": "none",
 	"normalizeDirDefines": true,
 	
 	"paths": {
-		"jquery": "empty:"
+		"jquery": "empty:",
+		"angular": "empty:"
 	}
 }

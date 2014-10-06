@@ -1,0 +1,1 @@
+- Implement a functionality `currentModule._dependencies.push("ngResource")`.

@@ -1,14 +1,14 @@
 define([
-	"jquery", "app/shared/model/Expense", "app/shared/dao/categoriesDao", "app/shared/dao/userDao", "app/shared/dao/expensesDao",
-	"util/returnService", "templateCache!./indexTemplate.html"
+	"angular", "app/shared/model/Expense", "app/shared/dao/userDao",
+	"app/shared/dao/categoriesDao", "app/shared/dao/expensesDao", "templateCache!./indexTemplate.html", "util/returnService"
 ],
-function($, Expense, categoriesDao, userDao, expensesDao, returnSvc) {
+function(angular, Expense) {
 	"use strict";
 	
-	IndexCtrl.$inject = ["$scope"];
-	function IndexCtrl($scope) {
+	IndexCtrl.$inject = ["$scope", "returnService", "expensesDao", "categoriesDao", "userDao"];
+	function IndexCtrl($scope, returnService, expensesDao, categoriesDao, userDao) {
 		
-		$.extend($scope, {
+		angular.extend($scope, {
 			categories: categoriesDao.fetchCachedForCurrentUser(),
 			form: initExpense(),
 			enter: enter,
@@ -16,33 +16,28 @@ function($, Expense, categoriesDao, userDao, expensesDao, returnSvc) {
 		});
 		
 		function initExpense() {
-			var retData, e = returnSvc.get("expense");
+			var retData, e = returnService.get("expense");
 			if( e == null ) {
 				e = new Expense();
-				userDao.getUserData().done(function(userData) {
+				userDao.getUserData().then(function(userData) {
 					e.categoryId = userData.defaultCategoryId;
-					// TODO Is this necessary? Why? Why not?
-					// (I believe it is and the reason it works without it is that something else happens to call $apply.)
-//					$scope.$apply();
 				});
 			}
 			else {
-				retData = returnSvc.getReturnedData();
+				retData = returnService.getReturnedData();
 				if( retData && typeof(retData.categoryKey) === "number" ) e.categoryId = retData.categoryKey;
 			}
 			return e;
 		}
 		
 		function enter(event) {
-console.log($scope);
-console.log("EXPENSE: %o", $scope.form);
 			expensesDao.add($scope.form);
 			// TODO Clear
 		}
 		
 		function editCategories(event) {
-			returnSvc.put("expense", $scope.form);
-			returnSvc.push();
+			returnService.put("expense", $scope.form);
+			returnService.push();
 		}
 	}
 	

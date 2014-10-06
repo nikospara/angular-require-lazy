@@ -1,60 +1,63 @@
-define(["util/resource", "util/loginPrompt", "jquery"], function(resource, promptLogin, $) {
+define(["angular", "currentModule", "util/loginPrompt"],
+function(angular, currentModule) {
 	"use strict";
-	
-	var userData = null, rc, loggedIn = false, loginPending = false;
-	
-	rc = resource("api/user", {}, {
-		login: { method:"POST", url:"api/user/login" }
-	});
-	
-	function login(username, password, callback, errback) {
-		rc.login({username:username,password:password}, function(data) {
-			loggedIn = true;
-			if( userData === null ) userData = $.Deferred();
-			userData.resolve(data);
-			if( $.isFunction(callback) ) callback(data);
-		}, function() {
-			if( userData !== null ) userData.reject();
-			if( $.isFunction(errback) ) errback();
-		});
-	}
-	
-	function isLoggedIn() {
-		return loggedIn;
-	}
-	
-	function getUserData(triggerLogin) {
-//console.log("getUserData -> %o / %o",userData,promptLogin.isOpen());
-//		if( userData === null || userData.state() !== "pending" ) userData = $.Deferred();
-		if( userData === null ) userData = $.Deferred();
-		if( !loginPending && triggerLogin !== false && userData.state() === "pending" ) {
-//console.log("prompt login");
-			loginPending = true;
-			promptLogin().then(
-				function(loginData) {
-					login(loginData.username,loginData.password,
-						function(result) {
-							userData.resolve(result);
-							loginPending = false;
-						},
-						function(err) {
-							userData.reject(err);
-							loginPending = false;
-						}
-					);
+
+	currentModule.service("userDao", ["$http", "$q", "loginPrompt", function($http, $q, loginPrompt) {
+		var userData = null, loggedIn = false, loginPending = false;
+
+		function login(username, password) {
+			userData = $q.defer(); // overwrite previous value; this is a new login
+			return $http.post("api/user/login", {username:username,password:password}).then(
+				function loginSucceeded(response) {
+					loggedIn = true;
+					userData.resolve(response.data);
+					return response.data;
 				},
-				function(err) {
-					userData.reject(err);
-					loginPending = false;
+				function loginFailed(response) {
+					loggedIn = false;
+					if( userData !== null ) userData.reject();
+					return $q.reject(response);
 				}
 			);
 		}
-		return userData.promise();
-	}
-	
-	return {
-		getUserData: getUserData,
-		login: login,
-		isLoggedIn: isLoggedIn
-	};
+		
+		function isLoggedIn() {
+			return loggedIn;
+		}
+		
+		function getUserData(triggerLogin) {
+			var d = userData || $q.defer();
+			if( userData == null ) {
+				userData = d;
+				if( !loginPending && triggerLogin !== false ) {
+					loginPending = true;
+					loginPrompt().then(
+						function(loginData) {
+							return login(loginData.username,loginData.password);
+						},
+						function(err) {
+							return $q.reject(err);
+						}
+					).then(
+						function(result) {
+							d.resolve(result);
+							loginPending = false;
+						},
+						function(err) {
+							d.reject(err);
+							loginPending = false;
+							return $q.reject(err);
+						}
+					);
+				}
+			}
+			return d.promise;
+		}
+		
+		return {
+			getUserData: getUserData,
+			login: login,
+			isLoggedIn: isLoggedIn
+		};
+	}]);
 });

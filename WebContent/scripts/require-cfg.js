@@ -2,20 +2,22 @@ var require = {
 	baseUrl: "scripts",
 	
 	paths: {
-		"text": "lib/requirejs-text/text",
-		"lazy": "lib/require-lazy/lazy",
-		"lazy-builder": "lib/require-lazy/lazy-builder",
-		"promise-adaptor": "lib/require-lazy/promise-adaptor-jquery",
-		"angular": "lib/angular/angular",
-//		"i18n": "lib/require/i18n",
-		"deferredInjector": "util/lib/angular-require/deferredInjector",
-		"currentModule": "util/lib/angular-require/currentModule",
-		"templateCache": "util/lib/angular-require/templateCache",
-		"$injector": "util/lib/angular-require/services/$injector"
+		"angular": "lib/angular/angular"
 	},
 	
 	config: {
 		
+	},
+	
+	map: {
+		"*": {
+			"text": "lib/requirejs-text/text",
+			"lazy": "lib/require-lazy/lazy",
+			"lazy-builder": "lib/require-lazy/lazy-builder",
+			"promise-adaptor": "util/lib/angular-require-lazy/promiseAdaptorAngular",
+			"currentModule": "util/lib/angular-require-lazy/currentModule",
+			"templateCache": "util/lib/angular-require-lazy/templateCache"
+		}
 	},
 	
 	shim: {
@@ -32,9 +34,12 @@ var require = {
 			deps: ["angular", "lib/angular-ui-bootstrap/src/transition/transition"]
 		},
 		"lib/angular-ui-bootstrap/src/modal/modal": {
-			deps: ["angular","util/modalTemplates"]
+			deps: ["angular","util/modalTemplates", "lib/angular-ui-bootstrap/src/transition/transition"]
 		},
 		"lib/angular-route/angular-route": {
+			deps: ["angular"]
+		},
+		"lib/angular-resource/angular-resource": {
 			deps: ["angular"]
 		}
 	}

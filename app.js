@@ -29,6 +29,7 @@ app.get("/api/user/:id/categories", function(req, res) {
 		]
 	});
 });
+
 app.post("/api/user/:id/categories", singleStringBodyParser, function(req, res) {
 //console.log(require("util").inspect(req));
 //
@@ -45,6 +46,17 @@ app.post("/api/user/:id/categories", singleStringBodyParser, function(req, res) 
 		});
 	}, 3000);
 });
+
+app.put("/api/user/:id/categories", express.bodyParser(), function(req, res) {
+	var c = req.body;
+	console.log("Changing name of category with key ", c.key, " to ", c.name);
+	setTimeout(function() { // simulate delay
+		res.json({
+			"payload": Math.random() < 0.7 // simulate success with 70% chance
+		});
+	}, 1000);
+});
+
 app["delete"]("/api/user/:id/categories/:key", express.bodyParser(), function(req, res) {
 	setTimeout(function() { // simulate delay
 		res.json({

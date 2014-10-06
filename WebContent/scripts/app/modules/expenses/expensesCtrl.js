@@ -1,14 +1,14 @@
 define([
-	"jquery", "app/shared/model/Expense", "app/shared/dao/categoriesDao", "app/shared/dao/userDao", "app/shared/dao/expensesDao",
+	"angular", "app/shared/model/Expense",
 	// side-effect deps
-	"templateCache!./expensesTemplate.html", "lib/ng-grid-bower/ng-grid"
+	"app/shared/dao/userDao", "app/shared/dao/expensesDao", "templateCache!./expensesTemplate.html", "lib/ng-grid-bower/ng-grid"
 ],
-function($, Expense, categoriesDao, userDao, expensesDao) {
+function(angular, Expense) {
 	"use strict";
 	
-	ExpensesCtrl.$inject = ["$scope"];
-	function ExpensesCtrl($scope) {
-		$.extend($scope, {
+	ExpensesCtrl.$inject = ["$scope", "expensesDao", "userDao"];
+	function ExpensesCtrl($scope, expensesDao, userDao) {
+		angular.extend($scope, {
 			defaultCategoryId: initDefaultCategoryId(),
 			expenses: initExpenses(),
 			gridOptions: initGridOptions(),
@@ -26,8 +26,8 @@ function($, Expense, categoriesDao, userDao, expensesDao) {
 		
 		function initExpenses() {
 			// TODO Determine month and year, route params
-			var ret = expensesDao.fetch(2013);
-ret.$then(function(){console.log(arguments);});
+			var ret = [];
+			expensesDao.fetch(2013,undefined,ret);
 			return ret;
 		}
 		

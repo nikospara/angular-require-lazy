@@ -17,7 +17,7 @@ function($, menuEntries, constants) {
 		});
 		
 		function isActive(menuEntry) {
-			return $route.current.locals && $route.current.locals.amdModule.name === menuEntry.moduleName;
+			return $route.current.locals && $route.current.locals.amdModule && $route.current.locals.amdModule.name === menuEntry.moduleName;
 		}
 		
 		function isHome() {

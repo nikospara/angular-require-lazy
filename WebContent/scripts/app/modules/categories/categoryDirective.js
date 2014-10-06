@@ -1,8 +1,8 @@
-define(["jquery", "app/shared/dao/userDao", "util/viewUtils", "currentModule", "text!./categoryTemplate.html"],
-function($, userDao, viewUtils, currentModule, template) {
+define(["angular", "util/viewUtils", "currentModule", "text!./categoryTemplate.html", "app/shared/dao/userDao"],
+function(angular, viewUtils, currentModule, template) {
 	"use strict";
 	
-	currentModule.directive("category", function() {
+	currentModule.directive("category", ["userDao", function(userDao) {
 		return {
 			restrict: "A",
 			template: template,
@@ -13,8 +13,8 @@ function($, userDao, viewUtils, currentModule, template) {
 				remove: "&"
 			},
 			link: function(scope, element, attrs) {
-				$.extend(scope, {
-					defaultCategoryId: initDefaultCategoryId(),
+				angular.extend(scope, {
+					defaultCategoryId: null,
 					editCb: editCb,
 					removeCb: removeCb
 				});
@@ -29,12 +29,12 @@ function($, userDao, viewUtils, currentModule, template) {
 					scope.remove({c:c});
 				}
 				
-				function initDefaultCategoryId() {
+				(function initDefaultCategoryId() {
 					return userDao.getUserData().then(function(userData) {
-						return userData.defaultCategoryId;
+						scope.defaultCategoryId = userData.defaultCategoryId;
 					});
-				}
+				})();
 			}
 		};
-	});
+	}]);
 });

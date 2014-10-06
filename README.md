@@ -82,10 +82,10 @@ How?
 ----
 
 - The providers (e.g. `$controllerProvider`, `$compileProvider`) are captured from a `config` function called from `bootstrap.js`.
-  This function is defined in `scripts/lib/angular-require/lazyAngularUtils.js` (`cacheInternals()`).
+  This function is defined in `scripts/lib/angular-require-lazy/lazyAngularUtils.js` (`cacheInternals()`).
 - After bootstrapping, we replace Angular's `module()` method with a proxy that can handle lazy loaded modules (see `makeLazyAngular()`
-  and `makeLazyModule()` in `scripts/lib/angular-require/lazyAngularUtils.js`).
-- The injector is captured and provided as a promise (`scripts/lib/angular-require/deferredInjector.js`).
+  and `makeLazyModule()` in `scripts/lib/angular-require-lazy/lazyAngularUtils.js`).
+- The injector is captured and provided as a promise (`scripts/lib/angular-require-lazy/deferredInjector.js`).
 - Templates can be loaded as text through a RequireJS plugin (as `"templateCache!path/to/my.html"`) and registered with Angular's
   `$templateCache` with the correct name (here `"path/to/my.html"`).
 - The developer uses the lazy loading mechanism by the special AMD module `currentModule`. This is a proxy to the currently loading
@@ -101,5 +101,5 @@ smoothly with RequireJS out of the box, so I have been experimenting with this i
 
 I believe this can be further improved and I hope it will contribute to a solution bridging the worlds of AMD and Angular modules.
 
-The providers capturing technique (implemented in `scripts/lib/angular-require/lazyAngularUtils.js`)
+The providers capturing technique (implemented in `scripts/lib/angular-require-lazy/lazyAngularUtils.js`)
 is based heavily on [angularjs-requirejs-lazy-controllers](https://github.com/matys84pl/angularjs-requirejs-lazy-controllers).

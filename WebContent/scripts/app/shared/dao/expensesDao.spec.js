@@ -1,11 +1,9 @@
-define(["./expensesDao", "mocks/util/resource"], function(expensesDao, mockResource) {
+define(["./expensesDao"], function(expensesDao) {
 	describe("The expensesDao", function() {
-		afterEach(function() {
-			mockResource.calls.reset();
-		});
-		
+		beforeEach(module("test-main"));
+
 		it("should pass", function() {
-			expect(mockResource.calls.count()).toBe(1);
+			expect(1).toBe(1); //dummy
 		});
 	});
 });

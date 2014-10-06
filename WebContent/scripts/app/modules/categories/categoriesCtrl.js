@@ -1,9 +1,9 @@
 define([
-	"jquery", "app/shared/dao/categoriesDao", "util/viewUtils", "util/returnService", "text!./deleteTemplate.html",
-	"templateCache!./categoriesTemplate.html", "./categoryDirective",
-	"lib/angular-ui-bootstrap/src/modal/modal"
+	"jquery", "util/viewUtils", "currentModule", "text!./deleteTemplate.html",
+	"templateCache!./categoriesTemplate.html", "./categoryDirective", "app/shared/dao/categoriesDao",
+	"lib/angular-ui-bootstrap/src/modal/modal", "util/returnService"
 ],
-function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
+function($, viewUtils, currentModule, templateDelete) {
 	"use strict";
 	
 	var ADD_LABEL = "Add", RENAME_LABEL = "Rename", opts;
@@ -14,8 +14,8 @@ function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
 		template: templateDelete
 	};
 	
-	EditCategoriesCtrl.$inject = ["$scope", "$q", "$modal"];
-	function EditCategoriesCtrl($scope, $q, $modal) {
+	EditCategoriesCtrl.$inject = ["$scope", "$q", "$modal", "returnService", "categoriesDao"];
+	function EditCategoriesCtrl($scope, $q, $modal, returnService, categoriesDao) {
 		
 		var lastAddedCategoryKey;
 		
@@ -43,7 +43,7 @@ function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
 		function updateCategory() {
 			var oldName = $scope.selectedCategoryForEdit.name;
 			$scope.selectedCategoryForEdit.name = $scope.form.name;
-			categoriesDao.updateCategory($scope.selectedCategoryForEdit,
+			categoriesDao.updateCategory($scope.selectedCategoryForEdit).then(
 				function success() {
 					cancel();
 				},
@@ -55,10 +55,9 @@ function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
 		
 		function addCategory() {
 			var newcat = categoriesDao.addCategory($scope.form.name);
-			newcat.$then(function() {
+			newcat.$$promise.then(function() {
 				lastAddedCategoryKey = newcat.key;
 			});
-			newcat.$pending = true;
 			$scope.form.name = null;
 			$scope.editCategoriesForm.$setPristine();
 		}
@@ -110,11 +109,11 @@ function($, categoriesDao, viewUtils, returnSvc, templateDelete) {
 		}
 		
 		function initIsPushed() {
-			return returnSvc.isPushed();
+			return returnService.isPushed();
 		}
 		
 		function doReturn() {
-			returnSvc.doReturn({categoryKey: lastAddedCategoryKey});
+			returnService.doReturn({categoryKey: lastAddedCategoryKey});
 		}
 	}
 	

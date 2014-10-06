@@ -19,7 +19,7 @@ define(["jquery"],function($) {
 	
 	Expense.amountValidators = [
 		["positive", function(thisObj, value, validationContext) {
-			validationContext.setMessage("Πρέπει να είναι θετικό");
+			validationContext.setMessage("Must be positive");
 			return value == null || value > 0;
 		}]
 	];

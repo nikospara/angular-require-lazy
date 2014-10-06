@@ -1,35 +1,35 @@
-define(["jquery"], function($) {
+define(["angular", "util/lib/angular-require-lazy/util"], function(angular, util) {
 	"use strict";
 	
-	var runBlocks = [], currentModuleProxy = {};
+	var runBlocks = [], currentModuleProxy = {}, makeArray = util.makeArray;
 	
 	currentModuleProxy.factory = function() {
-		runBlocks.push(["factory",$.makeArray(arguments)]);
+		runBlocks.push(["factory", makeArray(arguments)]);
 		return currentModuleProxy;
 	};
 	
 	currentModuleProxy.directive = function() {
-		runBlocks.push(["directive",$.makeArray(arguments)]);
+		runBlocks.push(["directive", makeArray(arguments)]);
 		return currentModuleProxy;
 	};
 	
 	currentModuleProxy.filter = function() {
-		runBlocks.push(["filter",$.makeArray(arguments)]);
+		runBlocks.push(["filter", makeArray(arguments)]);
 		return currentModuleProxy;
 	};
 	
 	currentModuleProxy.controller = function() {
-		runBlocks.push(["controller",$.makeArray(arguments)]);
+		runBlocks.push(["controller", makeArray(arguments)]);
 		return currentModuleProxy;
 	};
 	
 	currentModuleProxy.provider = function() {
-		runBlocks.push(["provider",$.makeArray(arguments)]);
+		runBlocks.push(["provider", makeArray(arguments)]);
 		return currentModuleProxy;
 	};
 	
 	currentModuleProxy.service = function() {
-		runBlocks.push(["service",$.makeArray(arguments)]);
+		runBlocks.push(["service", makeArray(arguments)]);
 		return currentModuleProxy;
 	};
 	

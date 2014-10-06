@@ -1,43 +1,30 @@
-define(["text!./loginPrompt.html", "$injector", "lib/angular-ui-bootstrap/src/modal/modal"],
-function(template, $injector) {
+define(["currentModule", "text!./loginPrompt.html", "lib/angular-ui-bootstrap/src/modal/modal"],
+function(currentModule, template) {
 	"use strict";
 	
-	var
-		isOpen = false,
+	currentModule.service("loginPrompt", ["$modal", function($modal) {
+		var
+			isOpen = false,
+			
+			opts = {
+				backdrop: "static",
+				keyboard: false,
+				template: template
+			};
 		
-		opts = {
-			backdrop: "static",
-			keyboard: false,
-			template: template,
-			controller: ["$scope", "$modalInstance", LoginCtrl]
-		},
-	
-		$q;
-	
-//alert("$injector in loginPrompt: ");
-//alert($injector);
-//	$q = $injector.get("$q");
-	
-	function promptLogin() {
-		if( !$q ) $q = $injector.get("$q");
-		var ret = $q.defer();
-		isOpen = true;
-		var d = $injector.get("$modal").open(opts);
-		d.result.then(
-			function(result) { isOpen = false; ret.resolve(result); },
-			function(err) { isOpen = false; ret.reject(err); }
-		);
-		return ret.promise;
-	}
-	promptLogin.isOpen = function() {
-		return isOpen;
-	};
-	
-	function LoginCtrl($scope, $modalInstance) {
-		$scope.close = function(result) {
-			$modalInstance.close(result);
+		function promptLogin() {
+			isOpen = true;
+			var d = $modal.open(opts);
+			d.result["finally"](function() {
+				isOpen = false;
+			});
+			return d.result;
+		}
+
+		promptLogin.isOpen = function() {
+			return isOpen;
 		};
-	}
-	
-	return promptLogin;
+		
+		return promptLogin;
+	}]);
 });
