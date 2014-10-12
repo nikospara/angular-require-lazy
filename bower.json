@@ -7,7 +7,7 @@
 		"requirejs": "latest",
 		"requirejs-text": "latest",
 		"almond": "latest",
-		"jquery": "~2.0",
+		"jquery": "~2.1",
 		"less.js": "latest",
 		"require-lazy": "latest",
 		"ng-grid-bower": "latest",
