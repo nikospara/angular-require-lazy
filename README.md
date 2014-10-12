@@ -6,6 +6,7 @@ An example-experimental application for mixing [AngularJS](http://angularjs.org/
 Changes
 -------
 
+- (2014/10/12) *MAJOR* changes for simplification; RequireJS is used strictly for script loading, the `$injector` AMD module is gone
 - (2014/10/03) Added support for testing with [Karma](http://karma-runner.github.io/).
 - (2014/03/08) 
     1. Angular's `$injector` is now exposed as AMD module; it is no longer a promise.
@@ -71,7 +72,7 @@ and [require-lazy](https://github.com/nikospara/require-lazy).
 The noteworthy points are:
 
 - AngularJS modules can be lazy loaded. Even pure Angular modules, like the demonstrated case with `ngGrid` (see the "Expenses" view).
-- Directives can be lazy loaded too, using the `currentModule` AMD module (see `scripts/app/modules/categories/category-directive.js`).
+- Directives can be lazy loaded too, using the `currentModule` AMD module (see `scripts/app/modules/categories/categoryDirective.js`).
 - There is a "module" discovery mechanism: any directory under `app/modules/` that contains a `main.js` script and a `main.metadata.json`
   can automatically appear in the menu (see `build-scripts/discoverModules.js`). This is used both by the build process and by the server.
   The discovery mechanism can be implemented by any server-side technology: you need to auto-generate the `lazy-registry` AMD module.
@@ -85,7 +86,6 @@ How?
   This function is defined in `scripts/lib/angular-require-lazy/lazyAngularUtils.js` (`cacheInternals()`).
 - After bootstrapping, we replace Angular's `module()` method with a proxy that can handle lazy loaded modules (see `makeLazyAngular()`
   and `makeLazyModule()` in `scripts/lib/angular-require-lazy/lazyAngularUtils.js`).
-- The injector is captured and provided as a promise (`scripts/lib/angular-require-lazy/deferredInjector.js`).
 - Templates can be loaded as text through a RequireJS plugin (as `"templateCache!path/to/my.html"`) and registered with Angular's
   `$templateCache` with the correct name (here `"path/to/my.html"`).
 - The developer uses the lazy loading mechanism by the special AMD module `currentModule`. This is a proxy to the currently loading
