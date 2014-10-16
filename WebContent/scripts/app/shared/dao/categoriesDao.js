@@ -16,8 +16,7 @@ function(angular, currentModule) {
 			if( result != null ) {
 				result.$$status = "PENDING";
 			}
-			// TODO $q.when() is required for now, since userDao.getUserData() uses jQuery promises; remove when refactoring is complete
-			return $q.when(userDao.getUserData()).then(
+			return userDao.getUserData().then(
 				function gotUserData(userData) {
 					return rc.get({id:userData.id}).$promise;
 				},
@@ -53,8 +52,7 @@ function(angular, currentModule) {
 
 		function updateCategory(c) {
 			c.$$status = "PENDING";
-			// TODO $q.when() is required for now, since userDao.getUserData() uses jQuery promises; remove when refactoring is complete
-			return $q.when(userDao.getUserData()).then(
+			return userDao.getUserData().then(
 				function gotUserData(userData) {
 					return rc.updateCategory({id:userData.id},{name:c.name, key:c.key}).$promise;
 				},
@@ -83,8 +81,7 @@ function(angular, currentModule) {
 		function deleteCategory(c) {
 			c.$$status = "PENDING";
 			c.$$deleted = true;
-			// TODO $q.when() is required for now, since userDao.getUserData() uses jQuery promises; remove when refactoring is complete
-			return $q.when(userDao.getUserData()).then(
+			return userDao.getUserData().then(
 				function gotUserData(userData) {
 					return rc.deleteCategory({id:userData.id,key:c.key},null).$promise;
 				},
@@ -124,8 +121,7 @@ function(angular, currentModule) {
 		function addCategory(name) {
 			var c = {key:null, name:name, $$status:"PENDING", $$promise:null};
 			cachedCategories.push(c);
-			// TODO $q.when() is required for now, since userDao.getUserData() uses jQuery promises; remove when refactoring is complete
-			c.$$promise = $q.when(userDao.getUserData()).then(
+			c.$$promise = userDao.getUserData().then(
 				function gotUserData(userData) {
 					return rc.save({id:userData.id},c).$promise;
 				},

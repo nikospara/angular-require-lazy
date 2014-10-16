@@ -16,8 +16,7 @@ function(Expense, angular, currentModule) {
 			if( result != null ) {
 				result.$$status = "PENDING";
 			}
-			// TODO $q.when() is required for now, since userDao.getUserData() uses jQuery promises; remove when refactoring is complete
-			return $q.when(userDao.getUserData()).then(
+			return userDao.getUserData().then(
 				function gotUserData(userData) {
 					return rc.get({id:userData.id, year:year, month:month}).$promise;
 				},
