@@ -1,4 +1,4 @@
-define(["angular", "promise-adaptor"], function(angular, promiseAdaptor) {
+define(["angular", "./promiseAdaptorAngular"], function(angular, promiseAdaptor) {
 	"use strict";
 	
 	var lazyAngularUtils, eagerAngularModuleFn = angular.module, cachedInternals = {}, lazyModules = {};
