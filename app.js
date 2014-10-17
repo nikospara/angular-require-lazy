@@ -75,20 +75,20 @@ app.get("/api/user/:id/expenses", function(req, res) {
 	res.json({
 		"payload": [
 			{key:1,  date:"2013-08-07T21:00:01.000Z", amount: 10, reason: "One",   categoryId: 1, special: null},
-			{key:2,  date:"2013-08-08T21:00:02.000Z", amount: 12, reason: "Two",   categoryId: 1, special: null},
-			{key:3,  date:"2013-08-08T21:00:03.000Z", amount: 14, reason: "Three", categoryId: 1, special: null},
+			{key:2,  date:"2013-08-08T21:00:02.000Z", amount: 12, reason: "Two",   categoryId: 2, special: null},
+			{key:3,  date:"2013-08-08T21:00:03.000Z", amount: 14, reason: "Three", categoryId: 3, special: null},
 			{key:4,  date:"2013-08-08T21:00:04.000Z", amount: 15, reason: "Four",  categoryId: 1, special: null},
 			{key:5,  date:"2013-08-08T21:00:05.000Z", amount: 18, reason: "Five",  categoryId: 1, special: null},
-			{key:11, date:"2013-08-08T21:00:11.000Z", amount: 10, reason: "One",   categoryId: 1, special: null},
-			{key:12, date:"2013-08-08T21:00:12.000Z", amount: 12, reason: "Two",   categoryId: 1, special: null},
+			{key:11, date:"2013-08-08T21:00:11.000Z", amount: 10, reason: "One",   categoryId: 2, special: null},
+			{key:12, date:"2013-08-08T21:00:12.000Z", amount: 12, reason: "Two",   categoryId: 2, special: null},
 			{key:13, date:"2013-08-08T21:00:13.000Z", amount: 14, reason: "Three", categoryId: 1, special: null},
 			{key:14, date:"2013-08-08T21:00:14.000Z", amount: 15, reason: "Four",  categoryId: 1, special: null},
 			{key:15, date:"2013-08-08T21:00:15.000Z", amount: 18, reason: "Five",  categoryId: 1, special: null},
-			{key:21, date:"2013-08-08T21:00:21.000Z", amount: 10, reason: "One",   categoryId: 1, special: null},
+			{key:21, date:"2013-08-08T21:00:21.000Z", amount: 10, reason: "One",   categoryId: 3, special: null},
 			{key:22, date:"2013-08-08T21:00:22.000Z", amount: 12, reason: "Two",   categoryId: 1, special: null},
 			{key:23, date:"2013-08-08T21:00:23.000Z", amount: 14, reason: "Three", categoryId: 1, special: null},
 			{key:24, date:"2013-08-08T21:00:24.000Z", amount: 15, reason: "Four",  categoryId: 1, special: null},
-			{key:25, date:"2013-08-09T21:00:25.000Z", amount: 18, reason: "Five",  categoryId: 1, special: null}
+			{key:25, date:"2013-08-09T21:00:25.000Z", amount: 18, reason: "Five",  categoryId: 2, special: null}
 		]
 	});
 });

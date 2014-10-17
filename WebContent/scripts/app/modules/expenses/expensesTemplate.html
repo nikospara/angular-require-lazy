@@ -1,5 +1,8 @@
 <div class="row-fluid">
-	<h1 class="span8 offset2"><a href="#" x-ng-show="isPushed" x-ng-click="doReturn()" class="link-action"><i class="iconlg-back"></i></a>Expenses</h1>
+	<h1 class="span8 offset2">
+		Expenses
+		<a href="#" x-ng-click="chart($event, expenses)" class="link-action" ng-if="expenses.$$status === 'SUCCESS'"><i class="iconlg-pie"></i></a>
+	</h1>
 </div>
 <div class="row-fluid">
 	<div class="span8 offset2">

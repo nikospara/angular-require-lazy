@@ -6,7 +6,7 @@ define([
 	// side-effect, non-AMD deps
 	"lib/angular-route/angular-route", "lib/angular-ui-bootstrap/src/modal/modal"
 ],
-function(angular, bootstrap, navbarCtrl, lazyRegistry, routeConfig, constants, $injector, navbarTemplate) {
+function(angular, bootstrap, navbarCtrl, lazyRegistry, routeConfig, constants) {
 	
 	var main = angular.module("main", ["ngRoute", "ui.bootstrap.collapse", "ui.bootstrap.modal"]);
 	

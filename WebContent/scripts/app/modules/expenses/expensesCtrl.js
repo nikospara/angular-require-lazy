@@ -1,17 +1,25 @@
 define([
-	"angular", "app/shared/model/Expense",
+	"angular", "app/shared/model/Expense", "templateCache!./chartPopup.tpl.html",
 	// side-effect deps
-	"app/shared/dao/userDao", "app/shared/dao/expensesDao", "templateCache!./expensesTemplate.html", "lib/ng-grid-bower/ng-grid"
+	"./pieChartDirective",
+	"app/shared/dao/userDao", "app/shared/dao/expensesDao", "templateCache!./expensesTemplate.html", "lib/ng-grid-bower/ng-grid", "lib/angular-ui-bootstrap/src/modal/modal"
 ],
-function(angular, Expense) {
+function(angular, Expense, chartPopupTemplate) {
 	"use strict";
 	
-	ExpensesCtrl.$inject = ["$scope", "expensesDao", "userDao"];
-	function ExpensesCtrl($scope, expensesDao, userDao) {
+	var opts = {
+		backdrop: "static",
+		keyboard: false,
+		template: chartPopupTemplate.text
+	};
+
+	ExpensesCtrl.$inject = ["$scope", "$modal", "expensesDao", "userDao"];
+	function ExpensesCtrl($scope, $modal, expensesDao, userDao) {
 		angular.extend($scope, {
 			defaultCategoryId: initDefaultCategoryId(),
 			expenses: initExpenses(),
 			gridOptions: initGridOptions(),
+			chart: chart,
 			format: function(x) {
 				// TODO
 				return x;
@@ -69,6 +77,32 @@ function(angular, Expense) {
 				]
 			};
 		}
+
+		function chart($event, expenses) {
+			$event.preventDefault();
+			opts.controller = ["$scope", "$modalInstance", ChartCtrl];
+			var d = $modal.open(opts);
+
+			function ChartCtrl($scope, $modalInstance) {
+				angular.extend($scope, {
+					data: mapExpensesForCharting(expenses)
+				});
+			}
+		}
+	}
+
+	function mapExpensesForCharting(expenses) {
+		var map = {}, result = [], i, tmp;
+		for( i=0; i < expenses.length; i++ ) {
+			tmp = map[expenses[i].categoryId];
+			if( !tmp ) {
+				tmp = { value:0, label:"Category " + expenses[i].categoryId };
+				map[expenses[i].categoryId] = tmp;
+				result.push(tmp);
+			}
+			tmp.value += expenses[i].amount;
+		}
+		return result;
 	}
 	
 	return ExpensesCtrl;
