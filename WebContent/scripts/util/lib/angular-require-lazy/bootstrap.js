@@ -8,6 +8,7 @@ define(["angular", "./lazyAngularUtils", "./currentModule"], function(angular, l
 		currentModule.resolveWith(mainModule);
 		lazyAngularUtils.makeLazyAngular();
 		injector = angular.bootstrap(element, [mainModule.name]);
+		bootstrap.injector = injector;
 		return injector;
 	}
 	

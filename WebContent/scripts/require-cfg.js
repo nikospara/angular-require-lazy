@@ -16,7 +16,9 @@ var require = {
 			"lazy-builder": "lib/require-lazy/lazy-builder",
 			"promise-adaptor": "util/lib/angular-require-lazy/promiseAdaptorAngular",
 			"currentModule": "util/lib/angular-require-lazy/currentModule",
-			"templateCache": "util/lib/angular-require-lazy/templateCache"
+			"templateCache": "util/lib/angular-require-lazy/templateCache",
+			"ngLazy": "util/lib/angular-require-lazy/ngLazy",
+			"ngLazyBuilder": "util/lib/angular-require-lazy/ngLazyBuilder"
 		}
 	},
 	
