@@ -1,13 +1,11 @@
 define([
 	"app/shared/model/Expense", "angular", "currentModule",
-	"lib/angular-resource/angular-resource", "./userDao"
+	"lib/angular-resource/angular-resource", "./userDao", "lib/angular-resource/angular-resource"
 ],
 function(Expense, angular, currentModule) {
 	"use strict";
 
-	// TODO (framework): I would like the following:
-	// currentModule._dependencies.push("ngResource");
-	currentModule.service("expensesDao", ["$resource", "$q", "userDao", function($resource, $q, userDao) {
+	currentModule.addDependencies("ngResource").service("expensesDao", ["$resource", "$q", "userDao", function($resource, $q, userDao) {
 		var rc;
 
 		rc = $resource("api/user/:id/expenses", {}, {});

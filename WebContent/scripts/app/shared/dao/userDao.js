@@ -1,8 +1,8 @@
-define(["angular", "currentModule", "util/loginPrompt"],
+define(["angular", "currentModule", "util/loginPrompt", "lib/angular-resource/angular-resource"],
 function(angular, currentModule) {
 	"use strict";
 
-	currentModule.service("userDao", ["$http", "$q", "loginPrompt", function($http, $q, loginPrompt) {
+	currentModule.addDependencies("ngResource").service("userDao", ["$http", "$q", "loginPrompt", function($http, $q, loginPrompt) {
 		var userData = null, loggedIn = false, loginPending = false;
 
 		function login(username, password) {

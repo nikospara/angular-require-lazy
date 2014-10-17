@@ -1,10 +1,10 @@
-define(["angular", "currentModule", "./userDao"],
+define(["angular", "currentModule", "./userDao", "lib/angular-resource/angular-resource"],
 function(angular, currentModule) {
 	"use strict";
 
 	var RC_URL = "api/user/:id/categories";
 
-	currentModule.service("categoriesDao", ["$resource", "$q", "userDao", function($resource, $q, userDao) {
+	currentModule.addDependencies("ngResource").service("categoriesDao", ["$resource", "$q", "userDao", function($resource, $q, userDao) {
 		var cachedCategories = null, cachedCategoriesMap = null, rc;
 
 		rc = $resource(RC_URL, {}, {

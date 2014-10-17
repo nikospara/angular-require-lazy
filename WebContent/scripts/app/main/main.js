@@ -4,11 +4,11 @@ define([
 	// side-effect deps
 	"templateCache!./navbar.html",
 	// side-effect, non-AMD deps
-	"lib/angular-route/angular-route", "lib/angular-ui-bootstrap/src/modal/modal", "lib/angular-resource/angular-resource"
+	"lib/angular-route/angular-route", "lib/angular-ui-bootstrap/src/modal/modal"
 ],
 function(angular, bootstrap, navbarCtrl, lazyRegistry, routeConfig, constants, $injector, navbarTemplate) {
 	
-	var main = angular.module("main", ["ngRoute", "ui.bootstrap.collapse", "ui.bootstrap.modal", "ngResource"]);
+	var main = angular.module("main", ["ngRoute", "ui.bootstrap.collapse", "ui.bootstrap.modal"]);
 	
 	main.config(["$routeProvider", addAllRoutes]);
 	

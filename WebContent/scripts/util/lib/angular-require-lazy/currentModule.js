@@ -1,8 +1,41 @@
 define(["angular", "util/lib/angular-require-lazy/util"], function(angular, util) {
 	"use strict";
 	
-	var runBlocks = [], currentModuleProxy = {}, makeArray = util.makeArray;
+	var runBlocks = [], moduleDependenciesSet = [], currentModuleProxy = {}, makeArray = util.makeArray;
+
+	currentModuleProxy.addDependencies = function() {
+		for( var i=0; i < arguments.length; i++ ) {
+			if( typeof(arguments[i]) === "string" ) {
+				addToSet(moduleDependenciesSet, arguments[i]);
+			}
+			else if( angular.isArray(arguments[i]) ) {
+				addAllToSet(moduleDependenciesSet, arguments[i]);
+			}
+		}
+		return currentModuleProxy;
+	};
+
+	function addToSet(set, d) {
+		if( d && set.indexOf(d) < 0 ) {
+			set.push(d);
+		}
+	}
+
+	function addAllToSet(set, deps) {
+		for( var i=0; i < deps.length; i++ ) {
+			if( typeof(deps[i]) === "string" ) {
+				addToSet(set, deps[i]);
+			}
+		}
+	}
+
+	currentModuleProxy.combineDependencies = function(deps) {
+		var i, ret = angular.copy(deps);
+		addAllToSet(ret, moduleDependenciesSet);
+		return ret;
+	};
 	
+	// Angular API
 	currentModuleProxy.factory = function() {
 		runBlocks.push(["factory", makeArray(arguments)]);
 		return currentModuleProxy;
@@ -47,6 +80,7 @@ define(["angular", "util/lib/angular-require-lazy/util"], function(angular, util
 			realModule[b[0]].apply(realModule,b[1]);
 		}
 		runBlocks = [];
+		moduleDependenciesSet = [];
 	};
 	
 	return currentModuleProxy;
