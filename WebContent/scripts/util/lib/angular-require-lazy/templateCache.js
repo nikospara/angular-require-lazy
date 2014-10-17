@@ -9,7 +9,10 @@ define(["module", "./currentModule"], function(module, currentModule) {
 					$templateCache.put(name, t);
 				}]);
 			}
-			onload(t);
+			onload({
+				text: t,
+				path: name
+			});
 		});
 	}
 	
