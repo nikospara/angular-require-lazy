@@ -2,7 +2,9 @@ var require = {
 	baseUrl: "scripts",
 	
 	paths: {
-		"angular": "lib/angular/angular"
+		"angular": "lib/angular/angular",
+		// XXX This is a workaround, waiting for a fix on require-lazy, so that the map configuration is correctly interpreted
+		"lazy": "lib/require-lazy/lazy"
 	},
 	
 	config: {
@@ -12,7 +14,8 @@ var require = {
 	map: {
 		"*": {
 			"text": "lib/requirejs-text/text",
-			"lazy": "lib/require-lazy/lazy",
+			// XXX This is a workaround, waiting for a fix on require-lazy, so that the map configuration is correctly interpreted
+//			"lazy": "lib/require-lazy/lazy",
 			"lazy-builder": "lib/require-lazy/lazy-builder",
 			"promise-adaptor": "util/lib/angular-require-lazy/promiseAdaptorAngular",
 			"currentModule": "util/lib/angular-require-lazy/currentModule",

@@ -9,7 +9,7 @@ function(module, promiseAdaptor, currentModule, lazyAngularUtils, bootstrap) {
 				doDevTimeLoad(stubModule, onload);
 			}
 			else {
-				onload();
+				onload(stubModule);
 			}
 		});
 	}
@@ -44,7 +44,6 @@ function(module, promiseAdaptor, currentModule, lazyAngularUtils, bootstrap) {
 	}
 	
 	return {
-		load: load,
-		pluginBuilder: "ngLazyBuilder"
+		load: load
 	};
 });
