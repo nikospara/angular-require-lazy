@@ -6,7 +6,8 @@ An example-experimental application for mixing [AngularJS](http://angularjs.org/
 Changes
 -------
 
-- (2014/10/12) *MAJOR* changes for simplification; RequireJS is used strictly for script loading, the `$injector` AMD module is gone
+- (2014/10/20) Support for true on-demand Angular module loading (i.e. triggered by an action other than route navigation); see `scripts/app/modules/expenses/expensesController` and the `ngLazy` AMD module
+- (2014/10/12) **MAJOR** changes for simplification; RequireJS is used strictly for script loading, the `$injector` AMD module is gone
 - (2014/10/03) Added support for testing with [Karma](http://karma-runner.github.io/).
 - (2014/03/08) 
     1. Angular's `$injector` is now exposed as AMD module; it is no longer a promise.

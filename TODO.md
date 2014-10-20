@@ -1,1 +1,4 @@
-- Implement a functionality `currentModule._dependencies.push("ngResource")`.
+- Write the "How To Configure a Project With angular-require-lazy" guide
+- Add coverage support
+- Integrate with sonarqube
+- Investigate the implementation of routeConfig in terms of ngLazy
