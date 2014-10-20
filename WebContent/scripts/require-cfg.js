@@ -2,9 +2,7 @@ var require = {
 	baseUrl: "scripts",
 	
 	paths: {
-		"angular": "lib/angular/angular",
-		// XXX This is a workaround, waiting for a fix on require-lazy, so that the map configuration is correctly interpreted
-		"lazy": "lib/require-lazy/lazy"
+		"angular": "lib/angular/angular"
 	},
 	
 	config: {
@@ -14,8 +12,8 @@ var require = {
 	map: {
 		"*": {
 			"text": "lib/requirejs-text/text",
-			// XXX This is a workaround, waiting for a fix on require-lazy, so that the map configuration is correctly interpreted
-//			"lazy": "lib/require-lazy/lazy",
+			// this must match the libLazy property in build-scripts/options-grunt.js
+			"lazy": "lib/require-lazy/lazy",
 			"lazy-builder": "lib/require-lazy/lazy-builder",
 			"promise-adaptor": "util/lib/angular-require-lazy/promiseAdaptorAngular",
 			"currentModule": "util/lib/angular-require-lazy/currentModule",

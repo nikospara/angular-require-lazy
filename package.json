@@ -5,11 +5,11 @@
 	"private": true,
 	"dependencies": {
 		"express": "3.x",
-		"require-lazy": "*"
+		"require-lazy": ">=0.3.8"
 	},
 	"devDependencies": {
 		"grunt": "~0.4",
-		"require-lazy-grunt": "*",
+		"require-lazy-grunt": ">=0.2.0",
 		"grunt-contrib-clean": "*",
 		"grunt-contrib-copy": "*",
 		"grunt-contrib-less": "*",

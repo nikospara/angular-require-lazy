@@ -4,6 +4,8 @@ var
 	discoverModules = require("./discoverModules");
 
 module.exports = {
+	// this must match the map['*'].lazy property in require-cfg.js
+	libLazy: "lib/require-lazy/lazy",
 	basePath: path.normalize(path.join(__dirname, "..", "WebContent")),
 	outputBaseDir: path.normalize(path.join(__dirname, "..", "build")),
 	discoverModules: discoverModules,
