@@ -1,4 +1,4 @@
-define(["./expensesDao"], function(expensesDao) {
+define(["app/shared/dao/expensesDao"], function(expensesDao) {
 	describe("The expensesDao", function() {
 		beforeEach(module("test-main"));
 

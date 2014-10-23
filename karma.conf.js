@@ -19,7 +19,7 @@ module.exports = function(config) {
 			{
 				'framework:angular-require-lazy': ['factory', (function() {
 					function alrPlugin(files) {
-						files.unshift({pattern: __dirname + '/WebContent/scripts/mocks/require-cfg.js', included: true, served: true, watched: false});
+						files.unshift({pattern: __dirname + '/WebTests/scripts/mocks/require-cfg.js', included: true, served: true, watched: false});
 						files.unshift({pattern: __dirname + '/WebContent/scripts/require-cfg.js', included: true, served: true, watched: false});
 //						files.push({pattern: __dirname + '/test-go.js', included: true, served: true, watched: false});
 					}
@@ -31,14 +31,14 @@ module.exports = function(config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			{pattern: 'WebContent/scripts/lib/jquery/jquery.js', included: true},
+			'WebTests/scripts/test-main.js',
+			{pattern: 'WebContent/scripts/lib/jquery/dist/jquery.js', included: true},
 			{pattern: 'WebContent/scripts/**/*.html', included: false},
 			{pattern: 'WebContent/scripts/*.js', included: false},
 			{pattern: 'WebContent/scripts/app/**/*.js', included: false},
 			{pattern: 'WebContent/scripts/util/**/*.js', included: false},
 			{pattern: 'WebContent/scripts/lib/**/*.js', included: false},
-			{pattern: 'WebContent/scripts/mocks/**/*.js', included: false},
-			'test-main.js'
+			{pattern: 'WebTests/scripts/**/*.js', included: false}
 		],
 
 		// list of files to exclude

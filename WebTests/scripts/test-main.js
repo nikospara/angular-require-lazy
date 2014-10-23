@@ -7,7 +7,8 @@ var globals = {
 
 
 var pathToModule = function(path) {
-	return path.replace(/^\/base\/WebContent\/scripts\//, '').replace(/\.js$/, '');
+//	return path.replace(/^\/base\/WebContent\/scripts\//, '').replace(/\.js$/, '');
+	return path.replace(/^\/base\/WebContent\/scripts\//, '');
 };
 
 Object.keys(window.__karma__.files).forEach(function(file) {
