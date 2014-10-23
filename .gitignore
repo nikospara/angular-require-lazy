@@ -5,3 +5,4 @@ WebContent/scripts/lib/*
 !WebContent/scripts/lib/Chart.js
 build/*
 /build-coverage/*
+/.sonar/
