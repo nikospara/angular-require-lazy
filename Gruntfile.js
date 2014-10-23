@@ -3,6 +3,19 @@ module.exports = function(grunt) {
 		config = require("./build-scripts/app.build-grunt.json");
 	
 	grunt.initConfig({
+		instrument: {
+			sources: {
+				files: [{
+					expand: true,
+					cwd: "WebContent/",
+					src: ["scripts/app/**/*.js", "scripts/util/**/*.js"],
+					dest: "build-coverage/instrumented"
+				}],
+				options: {
+					baseline: "build-coverage/baseline.json"
+				}
+			}
+		},
 		copy: {
 			images: {
 				expand: true,
@@ -33,13 +46,30 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		clean: ["build/*"]
+		karma: {
+			options: {
+				configFile: "karma.conf.js"
+			},
+			single: {
+				singleRun: true,
+				reporters: "dots"
+			},
+			coverage: {
+				singleRun: true,
+				configFile: "karma-coverage.conf.js"
+			}
+		},
+		clean: ["build/*","build-coverage/*"]
 	});
 	
 	grunt.loadNpmTasks("grunt-contrib-copy");
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("require-lazy-grunt");
 	grunt.loadNpmTasks("grunt-contrib-clean");
+	grunt.loadNpmTasks("grunt-karma");
+	grunt.loadTasks("build-scripts/grunt");
 	
 	grunt.registerTask("default", ["less:compile","copy:images","require_lazy_grunt"]);
+	grunt.registerTask("test", ["karma:single"]);
+	grunt.registerTask("coverage", ["instrument","karma:coverage"]);
 };

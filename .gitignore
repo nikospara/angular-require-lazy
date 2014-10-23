@@ -4,3 +4,4 @@ WebContent/scripts/lib/*
 !WebContent/scripts/lib/lazyload.js
 !WebContent/scripts/lib/Chart.js
 build/*
+/build-coverage/*
