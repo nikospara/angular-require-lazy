@@ -6,6 +6,7 @@ An example-experimental application for mixing [AngularJS](http://angularjs.org/
 Changes
 -------
 
+- (2014/10/26) Added support for **test coverage** and [SonarQube](http://www.sonarqube.org/) integration; **documentation** is on the way, do check the [wiki](https://github.com/nikospara/angular-require-lazy/wiki)
 - (2014/10/20) Support for true on-demand Angular module loading (i.e. triggered by an action other than route navigation); see `scripts/app/modules/expenses/expensesController` and the `ngLazy` AMD module
 - (2014/10/12) **MAJOR** changes for simplification; RequireJS is used strictly for script loading, the `$injector` AMD module is gone
 - (2014/10/03) Added support for testing with [Karma](http://karma-runner.github.io/).
@@ -93,6 +94,16 @@ How?
   Angular module, providing the familiar API (some methods are still under development).
 - See any view module under `WebContent/scripts/app/modules/` to see the implementation of a view; this is the actual code a developer would
   write, i.e. application code, not framework code.
+
+### Testing - Coverage - Sonar
+
+Run `grunt test` to run the test suite.
+
+Run `grunt coverage` to make the test coverage report. The output will be in `build-coverage/report/output/lcov.info`
+and the HTML version under `build-coverage/report/output/lcov-report/index.html`.
+
+To have Sonar analyze the project, execute the coverage report first and then, run `sonar-runner` (make
+sure it is in the `PATH`).
 
 Why?
 ----

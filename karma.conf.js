@@ -21,7 +21,6 @@ module.exports = function(config) {
 					function alrPlugin(files) {
 						files.unshift({pattern: __dirname + '/WebTests/scripts/mocks/require-cfg.js', included: true, served: true, watched: false});
 						files.unshift({pattern: __dirname + '/WebContent/scripts/require-cfg.js', included: true, served: true, watched: false});
-//						files.push({pattern: __dirname + '/test-go.js', included: true, served: true, watched: false});
 					}
 					alrPlugin.$inject = ['config.files'];
 					return alrPlugin;
