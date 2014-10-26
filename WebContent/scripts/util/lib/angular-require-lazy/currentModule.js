@@ -1,4 +1,4 @@
-define(["angular", "util/lib/angular-require-lazy/util"], function(angular, util) {
+define(["angular", "./util"], function(angular, util) {
 	"use strict";
 	
 	var runBlocks = [], moduleDependenciesSet = [], currentModuleProxy = {}, makeArray = util.makeArray;
