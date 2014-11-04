@@ -71,7 +71,22 @@ define(["angular", "./util"], function(angular, util) {
 		return currentModuleProxy;
 	};
 	
-	// TODO Implement the rest of the angular.module interface
+	currentModuleProxy.value = function() {
+		runBlocks.push(["value", makeArray(arguments)]);
+		return currentModuleProxy;
+	};
+	
+	currentModuleProxy.constant = function() {
+		runBlocks.push(["constant", makeArray(arguments)]);
+		return currentModuleProxy;
+	};
+	
+	currentModuleProxy.animation = function() {
+		runBlocks.push(["animation", makeArray(arguments)]);
+		return currentModuleProxy;
+	};
+	
+	// TODO Only config() is missing from the angular.module interface; decide if we can handle it and how
 	
 	currentModuleProxy.resolveWith = function(realModule) {
 		var i, b;

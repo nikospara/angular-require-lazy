@@ -35,8 +35,20 @@ define(["angular", "./promiseAdaptorAngular"], function(angular, promiseAdaptor)
 			run: function(r) {
 				this.__runBlocks.push(r);
 				return lazyModule;
+			},
+			value: function() {
+				cachedInternals.$provide.value.apply(null, arguments);
+				return lazyModule;
+			},
+			constant: function() {
+				cachedInternals.$provide.constant.apply(null, arguments);
+				return lazyModule;
+			},
+			animation: function() {
+				cachedInternals.$animateProvider.register.apply(null, arguments);
+				return lazyModule;
 			}
-			// TODO Implement the rest of the angular.module interface
+			// TODO Only config() is missing from the angular.module interface; decide if we can handle it and how
 		};
 		return lazyModule;
 	}
@@ -81,12 +93,13 @@ define(["angular", "./promiseAdaptorAngular"], function(angular, promiseAdaptor)
 		}
 	}
 	
-	cacheInternals.$inject = ["$provide", "$compileProvider", "$filterProvider", "$controllerProvider"];
-	function cacheInternals($provide, $compileProvider, $filterProvider, $controllerProvider) {
+	cacheInternals.$inject = ["$provide", "$compileProvider", "$filterProvider", "$controllerProvider", "$animateProvider"];
+	function cacheInternals($provide, $compileProvider, $filterProvider, $controllerProvider, $animateProvider) {
 		cachedInternals.$provide = $provide;
 		cachedInternals.$compileProvider = $compileProvider;
 		cachedInternals.$filterProvider = $filterProvider;
 		cachedInternals.$controllerProvider = $controllerProvider;
+		cachedInternals.$animateProvider = $animateProvider;
 	}
 	
 	lazyAngularUtils = {
