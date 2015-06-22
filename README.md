@@ -34,13 +34,14 @@ Run
 
 1. Clone the GIT repository
 2. `npm instal`
-3. `node app.js` to run the server
-4. Hit `http://localhost:8110/app.html` (this is the unbuilt-development version of the application)
+3. `bower install`
+4. `node app.js` to run the server
+5. Hit `http://localhost:8110/app.html` (this is the unbuilt-development version of the application)
 
 Build, test and run
 -------------------
 
-(Steps 1 & 2 above are prerequisites)
+(Steps 1, 2 & 3 above are prerequisites)
 
 (NOTE: There used to be a standalone script based build system; this was deprecated and removed in favor of Grunt.)
 
