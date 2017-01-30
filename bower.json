@@ -1,10 +1,10 @@
 {
 	"name": "angular-expenses",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"private": true,
 	"dependencies": {
 		"angular": "1.3.x",
-		"angular-ui-bootstrap": "latest",
+		"angular-ui-bootstrap": "0.13.4",
 		"requirejs": "latest",
 		"requirejs-text": "latest",
 		"almond": "latest",

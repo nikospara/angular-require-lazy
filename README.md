@@ -6,6 +6,7 @@ An example-experimental application for mixing [AngularJS](http://angularjs.org/
 Changes
 -------
 
+- (2017/01/31) A long time has passed... And this project is no longer relevant: Angular has moved to 2 (or 4 or whatever), I have moved away of Angular, AMD is now superseeded by the excellent ES6 modules and Webpack does what I ever wanted this project to do; I will be answering questions and issues as and if they appear, but I doubt there is much point in continuing this project; a big thank you to everyone!
 - (2014/10/26) Added support for **test coverage** and [SonarQube](http://www.sonarqube.org/) integration; **documentation** is on the way, do check the [wiki](https://github.com/nikospara/angular-require-lazy/wiki)
 - (2014/10/20) Support for true on-demand Angular module loading (i.e. triggered by an action other than route navigation); see `scripts/app/modules/expenses/expensesController` and the `ngLazy` AMD module
 - (2014/10/12) **MAJOR** changes for simplification; RequireJS is used strictly for script loading, the `$injector` AMD module is gone
